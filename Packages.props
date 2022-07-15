@@ -4,13 +4,13 @@
     <PlatformVersion>9.0.180604</PlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Update="Castle.Core" Version="4.3.1" />
+    <PackageReference Update="Castle.Windsor" Version="4.1.0" />
     <PackageReference Update="Glass.Mapper.Sc.90" Version="5.8.180" />
     <PackageReference Update="Glass.Mapper.Sc.90.Core" Version="5.8.180" />
     <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="2.0.0" />
     <!--<PackageReference Update="Antlr" Version="3.5.0.2" />
     <PackageReference Update="bootstrap" Version="3.3.7" />
-    <PackageReference Update="Castle.Core" Version="4.3.1" />
-    <PackageReference Update="Castle.Windsor" Version="4.1.0" />
     <PackageReference Update="Common.Logging" Version="3.3.1" />
     <PackageReference Update="Common.Logging.Core" Version="3.3.1" />
     <PackageReference Update="CommonServiceLocation" Version="1.0.0" />

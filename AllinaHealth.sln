@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinaHealth.Web", "src\All
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinaHealth.Models", "src\AllinaHealth.Models\AllinaHealth.Models.csproj", "{127723B4-6013-4BC5-846E-FBBD938F758B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinaHealth.IOC", "src\AllinaHealth.IOC\AllinaHealth.IOC.csproj", "{0D84F87E-4DF1-4055-A886-5D93E1CF0C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{127723B4-6013-4BC5-846E-FBBD938F758B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127723B4-6013-4BC5-846E-FBBD938F758B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127723B4-6013-4BC5-846E-FBBD938F758B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D84F87E-4DF1-4055-A886-5D93E1CF0C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D84F87E-4DF1-4055-A886-5D93E1CF0C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D84F87E-4DF1-4055-A886-5D93E1CF0C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D84F87E-4DF1-4055-A886-5D93E1CF0C69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
