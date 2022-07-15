@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{127723B4-6013-4BC5-846E-FBBD938F758B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AllinaHealth.Models</RootNamespace>
+    <AssemblyName>AllinaHealth.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Careers\CareersModel.cs" />
+    <Compile Include="Extensions\NewsBlogItemExtensions.cs" />
+    <Compile Include="Extensions\XmlExtentions.cs" />
+    <Compile Include="Fields\EmailConfirmationViewModel.cs" />
+    <Compile Include="Fields\PrepopulatedTextViewModel.cs" />
+    <Compile Include="Forms\EmailTemplate.cs" />
+    <Compile Include="Forms\SendMailActionData.cs" />
+    <Compile Include="MigrationModels\AEktronMigrationModel.cs" />
+    <Compile Include="MigrationModels\EktronAccordion.cs" />
+    <Compile Include="MigrationModels\EktronAtoZ.cs" />
+    <Compile Include="MigrationModels\EktronDocument.cs" />
+    <Compile Include="MigrationModels\EktronGoogleMap.cs" />
+    <Compile Include="MigrationModels\EktronHealthInfo.cs" />
+    <Compile Include="MigrationModels\EktronInfo.cs" />
+    <Compile Include="MigrationModels\EktronMenu.cs" />
+    <Compile Include="MigrationModels\EktronNews.cs" />
+    <Compile Include="MigrationModels\EktronNewsMetaData.cs" />
+    <Compile Include="MigrationModels\EktronPageID.cs" />
+    <Compile Include="MigrationModels\EktronPhotoGallery.cs" />
+    <Compile Include="MigrationModels\EktronRecipe.cs" />
+    <Compile Include="MigrationModels\EktronRelatedLink.cs" />
+    <Compile Include="MigrationModels\HsgMetaData.cs" />
+    <Compile Include="MigrationModels\HsgMigrationModel.cs" />
+    <Compile Include="SitecoreModels.cs" />
+    <Compile Include="Comparers\NewsBlogPublishDateComparer.cs" />
+    <Compile Include="Constants\DateFormat.cs" />
+    <Compile Include="ContentSearch\BaseSearchResultItem.cs" />
+    <Compile Include="ContentSearch\HSGSearchResultItem.cs" />
+    <Compile Include="ContentSearch\NewsBlogCategoryResultItem.cs" />
+    <Compile Include="ContentSearch\NewsBlogPostResultItem.cs" />
+    <Compile Include="ContentSearch\NewsroomSearchResultItem.cs" />
+    <Compile Include="ContentSearch\PreferredSearchItem.cs" />
+    <Compile Include="ContentSearch\SearchExclusionItem.cs" />
+    <Compile Include="ContentSearch\SitemapSearchResultItem.cs" />
+    <Compile Include="ContentSearch\SiteSearchPreferredResultItem.cs" />
+    <Compile Include="ContentSearch\SiteSearchResultItem.cs" />
+    <Compile Include="Contexts\SiteContextModel.cs" />
+    <Compile Include="Extensions\ItemExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\ConsumerLocation.cs" />
+    <Compile Include="Utility\ConsumerLocations.cs" />
+    <Compile Include="ViewModels\EmailUsFormModel.cs" />
+    <Compile Include="ViewModels\HSG\ArticleViewModel.cs" />
+    <Compile Include="ViewModels\HSG\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Menus\MenuTreeModel.cs" />
+    <Compile Include="ViewModels\HSG\NavigationViewModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\SearchByRelatedItemPageViewModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\MonthPageViewModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\NewsBlogMenuTreeModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\PostViewModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\SearchPageViewModel.cs" />
+    <Compile Include="ViewModels\NewsBlog\YearPageViewModel.cs" />
+    <Compile Include="ViewModels\Reporting\ModifiedItemsViewModel.cs" />
+    <Compile Include="ViewModels\Search\Pager.cs" />
+    <Compile Include="ViewModels\Search\SearchPage.cs" />
+    <Compile Include="ViewModels\Toolbox\QandATreeModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Glass.Mapper.Sc.90" />
+    <PackageReference Include="Glass.Mapper.Sc.90.Core" />
+    <PackageReference Include="Sitecore.ContentSearch" />
+    <PackageReference Include="Sitecore.ExperienceForms.Mvc" />
+    <PackageReference Include="Sitecore.Kernel" />
+    <PackageReference Include="Sitecore.Mvc" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

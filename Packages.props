@@ -4,6 +4,9 @@
     <PlatformVersion>9.0.180604</PlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Update="Glass.Mapper.Sc.90" Version="5.8.180" />
+    <PackageReference Update="Glass.Mapper.Sc.90.Core" Version="5.8.180" />
+    <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="2.0.0" />
     <!--<PackageReference Update="Antlr" Version="3.5.0.2" />
     <PackageReference Update="bootstrap" Version="3.3.7" />
     <PackageReference Update="Castle.Core" Version="4.3.1" />
@@ -19,9 +22,7 @@
     <PackageReference Update="EnterpriseLibrary.TransientFaultHandling.Data" Version="6.0.1304.1" />
     <PackageReference Update="EnterpriseLibrary.TransientFaultHandling.ServiceBus" Version="6.0.1304" />
     <PackageReference Update="EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage" Version="6.0.1304" />
-    <PackageReference Update="EPPlus" Version="4.5.2.1" />
-    <PackageReference Update="Glass.Mapper.Sc.90" Version="5.8.180" />
-    <PackageReference Update="Glass.Mapper.Sc.90.Core" Version="5.8.180" />
+    <PackageReference Update="EPPlus" Version="4.5.2.1" />    
     <PackageReference Update="HtmlAgilityPack" Version="1.4.9.5" />
     <PackageReference Update="jQuery" Version="3.3.1" />
     <PackageReference Update="jQuery.Validation" Version="1.11.1" />
@@ -34,9 +35,8 @@
     <PackageReference Update="Microsoft.AspNet.WebApi.Core" Version="5.2.6" />
     <PackageReference Update="Microsoft.AspNet.WebApi.HelpPage" Version="5.2.6" />
     <PackageReference Update="Microsoft.AspNet.WebApi.WebHost" Version="5.2.6" />
-    <PackageReference Update="Microsoft.AspNet.WebPages" Version="3.2.6" />-->
-    <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="2.0.0" />
-    <!--<PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="1.0.0" />
+    <PackageReference Update="Microsoft.AspNet.WebPages" Version="3.2.6" />
+    <PackageReference Update="Microsoft.Extensions.DependencyInjection" Version="1.0.0" />
     <PackageReference Update="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.0.0" />
     <PackageReference Update="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.3" />
     <PackageReference Update="Microsoft.Net.Compilers" Version="2.9.0" />
@@ -60,19 +60,21 @@
     <PackageReference Include="System.Runtime.Extensions" Version="4.1.0" />
     <PackageReference Include="System.Threading" Version="4.0.11" />
     <PackageReference Include="System.Threading.Tasks" Version="4.0.11" />
-    <PackageReference Update="WebGrease" Version="1.6.0" />
+    <PackageReference Update="WebGrease" Version="1.6.0" />-->
 
-    <PackageReference Update="Sitecore.Abstractions" Version="$(PlatformVersion)" />
-    <PackageReference Update="Sitecore.ContentSearch" Version="$(PlatformVersion)" />
+    <!--<PackageReference Update="Sitecore.Abstractions" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ContentSearch.Data" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ContentSearch.Linq" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ContentSearch.Linq.Solr" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ContentSearch.SolrNetExtension" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ContentSearch.SolrProvider" Version="$(PlatformVersion)" />
-    <PackageReference Update="Sitecore.Kernel" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Logging" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Logging.Client" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.NVelocity" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Zip" Version="$(PlatformVersion)" />-->
+    <PackageReference Update="Sitecore.ContentSearch" Version="$(PlatformVersion)" />
+    <PackageReference Update="Sitecore.ExperienceForms.Mvc" Version="$(PlatformVersion)" />
+    <PackageReference Update="Sitecore.Kernel" Version="$(PlatformVersion)" />
+    <PackageReference Update="Sitecore.Mvc" Version="$(PlatformVersion)" />
   </ItemGroup>
 </Project>

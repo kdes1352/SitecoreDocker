@@ -78,6 +78,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AllinaHealth.Models\AllinaHealth.Models.csproj">
+      <Project>{127723b4-6013-4bc5-846e-fbbd938f758b}</Project>
+      <Name>AllinaHealth.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
