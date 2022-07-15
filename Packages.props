@@ -76,5 +76,6 @@
     <PackageReference Update="Sitecore.ExperienceForms.Mvc" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Kernel" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Mvc" Version="$(PlatformVersion)" />
+    <PackageReference Update="Sitecore.Xdb.Tracking.Client" Version="$(PlatformVersion)" />
   </ItemGroup>
 </Project>

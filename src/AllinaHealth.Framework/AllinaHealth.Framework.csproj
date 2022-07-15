@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{33BB1996-2CE3-44A7-BB6C-AC00D81D23C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AllinaHealth.Framework</RootNamespace>
+    <AssemblyName>AllinaHealth.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Sitecore.MediaFramework">
+      <HintPath>..\lib\Sitecore.MediaFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Analytics\TrackingFieldDetailsPage.cs" />
+    <Compile Include="Brightcove\MediaSyncItemImport\CreateItem.cs" />
+    <Compile Include="Commands\CustomReportsCommand.cs" />
+    <Compile Include="Commands\UnlockItem.cs" />
+    <Compile Include="ContentSearch\ComputedFields\HtmlComputedField.cs" />
+    <Compile Include="ContentSearch\ComputedFields\ItemUrl.cs" />
+    <Compile Include="ContentSearch\ComputedFields\SortableCategory.cs" />
+    <Compile Include="ContentSearch\GlobalSearch\IndexableSearchWebPage.cs" />
+    <Compile Include="ContentSearch\GlobalSearch\SearchWebPageCrawler.cs" />
+    <Compile Include="ContentSearch\GlobalSearch\SearchWebPageItem.cs" />
+    <Compile Include="ContentSearch\GlobalSearch\SearchWebPageRepository.cs" />
+    <Compile Include="ContentSearch\IndexSearcher.cs" />
+    <Compile Include="Contexts\Base\GenericContext.cs" />
+    <Compile Include="Contexts\SiteContext.cs" />
+    <Compile Include="Controls\MvcEditFrame.cs" />
+    <Compile Include="Events\DictionaryCacheClearer.cs" />
+    <Compile Include="Events\DynamicPlaceholderEventHandler.cs" />
+    <Compile Include="Events\LowercaseNameForCreatedItem.cs" />
+    <Compile Include="Extensions\ControlExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\FormFieldExtensions.cs" />
+    <Compile Include="Extensions\GenericsExtensions.cs" />
+    <Compile Include="Extensions\HtmlDocumentExtensions.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Extensions\SitecoreHelperExtensions.cs" />
+    <Compile Include="Extensions\StandardExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\UserExtensions.cs" />
+    <Compile Include="Factory\ControllerFactory.cs" />
+    <Compile Include="Feeds\ItemInWorkflow.cs" />
+    <Compile Include="FormActions\SendEmailAction.cs" />
+    <Compile Include="FormActions\TestEmail.cs" />
+    <Compile Include="Links\LinkHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Sitecore.ContentSearch" />
+    <PackageReference Include="Sitecore.Kernel" />
+    <PackageReference Include="Sitecore.Xdb.Tracking.Client" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AllinaHealth.IOC\AllinaHealth.IOC.csproj">
+      <Project>{0d84f87e-4df1-4055-a886-5d93e1cf0c69}</Project>
+      <Name>AllinaHealth.IOC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AllinaHealth.Models\AllinaHealth.Models.csproj">
+      <Project>{127723b4-6013-4bc5-846e-fbbd938f758b}</Project>
+      <Name>AllinaHealth.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
