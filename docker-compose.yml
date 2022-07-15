@@ -1,0 +1,94 @@
+version: '2.4'
+
+services:
+
+  solution:
+    image: ${REGISTRY:-}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+    build:
+      context: .
+      args:
+        BASE_IMAGE: ${SOLUTION_BASE_IMAGE}
+        BUILD_IMAGE: ${SOLUTION_BUILD_IMAGE}
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    scale: 0
+
+  traefik:
+    isolation: ${TRAEFIK_ISOLATION}
+    image: ${TRAEFIK_IMAGE}
+    command:
+      - "--ping"
+      - "--api.insecure=true"
+      - "--providers.docker.endpoint=npipe:////./pipe/docker_engine"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.file.directory=C:/etc/traefik/config/dynamic"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.forwardedHeaders.insecure"
+    ports:
+      - "${HTTPS_PORT}:443"
+      - "${TRAEFIK_MANAGEMENT_PORT}:8080"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+    volumes:
+      - source: \\.\pipe\docker_engine\
+        target: \\.\pipe\docker_engine\
+        type: npipe
+      - ./docker/traefik:C:/etc/traefik
+  sql:
+    hostname: sql
+    image: ${REGISTRY:-}sitecore-xm-sqldev:${SITECORE_VERSION}-windowsservercore-${WINDOWS_VERSION}
+    volumes:
+      - ${LOCAL_DATA_PATH}\sql:C:\Data
+    mem_limit: 4GB
+    ports:
+      - "44004:1433"
+
+  solr:
+    hostname: solr
+    image: ${REGISTRY:-}sitecore-xm-solr:${SITECORE_VERSION}-nanoserver-1809
+    volumes:
+      - ${LOCAL_DATA_PATH}\solr:C:\Data
+    mem_limit: 2GB
+    ports:
+      - "44003:8983"
+
+  cm:
+    image: ${REGISTRY:-}sitecore-xm-cm:${SITECORE_VERSION}-windowsservercore-${WINDOWS_VERSION}
+    volumes:
+      - ${LOCAL_DATA_PATH}\cm:C:\inetpub\wwwroot\App_Data\logs
+      - ${LICENSE_PATH}:C:\license
+    ports:
+      - "44001:80"
+    links:
+      - sql
+      - solr
+    environment:
+      - Sitecore_License=${SITECORE_LICENSE}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.stsSeconds=31536000"
+      - "traefik.http.routers.cm-secure.entrypoints=websecure"
+      - "traefik.http.routers.cm-secure.rule=Host(`${CM_HOST}`)"
+      - "traefik.http.routers.cm-secure.tls=true"
+      - "traefik.http.routers.cm-secure.middlewares=force-STS-Header, stripForwardedHostHeader"
+      - "traefik.http.middlewares.stripForwardedHostHeader.headers.customrequestheaders.X-Forwarded-Host="
+
+  cd:
+    image: ${REGISTRY:-}sitecore-xm-cd:${SITECORE_VERSION}-windowsservercore-${WINDOWS_VERSION}
+    volumes:
+      - ${LOCAL_DATA_PATH}\cd:C:\inetpub\wwwroot\App_Data\logs
+      - ${LICENSE_PATH}:C:\license
+    ports:
+      - "44002:80"
+    links:
+      - sql
+      - solr
+    environment:
+      - Sitecore_License=${SITECORE_LICENSE}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cd-secure.entrypoints=websecure"
+      - "traefik.http.routers.cd-secure.rule=Host(`${CD_HOST}`)"
+      - "traefik.http.routers.cd-secure.tls=true"
+      - "traefik.http.middlewares.stripForwardedHostHeader.headers.customrequestheaders.X-Forwarded-Host="
+      - "traefik.http.routers.cd-secure.middlewares=stripForwardedHostHeader"
