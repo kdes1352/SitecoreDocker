@@ -6,13 +6,12 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.Exceptions;
-using Sitecore.Shell.Feeds.FeedTypes;
 using Sitecore.StringExtensions;
 using Sitecore.Workflows;
 
 namespace AllinaHealth.Framework.Feeds
 {
-    public class ItemInWorkflow : Workflow
+    public class ItemInWorkflow : Sitecore.Shell.Feeds.FeedTypes.Workflow
     {
         public string WorkflowItemDataUriKey = "dataUri";
         private Item _workflowItem;

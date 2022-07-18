@@ -79,12 +79,55 @@
     <Compile Include="FormActions\SendEmailAction.cs" />
     <Compile Include="FormActions\TestEmail.cs" />
     <Compile Include="Links\LinkHelper.cs" />
+    <Compile Include="Pipelines\GetContentEditorWarnings\IsLocked.cs" />
+    <Compile Include="Pipelines\GetFieldValueExtended\GetFieldValueExtended.cs" />
+    <Compile Include="Pipelines\GetPageEditorNotifications\GetLockingNotification.cs" />
+    <Compile Include="Pipelines\GetRenderingDatasource\GetCodeDatasourceLocations.cs" />
+    <Compile Include="Pipelines\GetRenderingDatasource\GetDatasourceAbstractProcessor.cs" />
+    <Compile Include="Pipelines\GetRenderingDatasource\GetSiteRootDatasourceLocations.cs" />
+    <Compile Include="Pipelines\HttpRequestBegin\DmsAndPdfDocumentResolver.cs" />
+    <Compile Include="Pipelines\HttpRequestBegin\LanguageResolver.cs" />
+    <Compile Include="Pipelines\HttpRequestBegin\NotFoundItemResolver.cs" />
+    <Compile Include="Pipelines\HttpRequestBegin\RobotsTextRequestProcessor.cs" />
+    <Compile Include="Pipelines\HttpRequestBegin\SitemapRequestProcessor.cs" />
+    <Compile Include="Pipelines\Initialize\InitializeBundlingAndMinification.cs" />
+    <Compile Include="Pipelines\Initialize\InitializeControllerFactory.cs" />
+    <Compile Include="Pipelines\Mvc\Exception\ProcessError.cs" />
+    <Compile Include="Pipelines\Mvc\GetRenderer\AreaControllerRenderer.cs" />
+    <Compile Include="Pipelines\Mvc\GetRenderer\AreaControllerRunner.cs" />
+    <Compile Include="Pipelines\Mvc\GetRenderer\ControllerInfo.cs" />
+    <Compile Include="Pipelines\Mvc\GetRenderer\GetWindsorControllerRenderer.cs" />
+    <Compile Include="Pipelines\RenderContentEditorHeader\AddLinks.cs" />
+    <Compile Include="Pipelines\Save\CheckLinks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Razor\WebViewPage.cs" />
+    <Compile Include="Rules\CreateItemNameBasedPath.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Galleries\Links.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Galleries\VersionForm.cs" />
+    <Compile Include="Shell\Override\CopyDeviceTo.cs" />
+    <Compile Include="Shell\Override\LayoutDetails.cs" />
+    <Compile Include="Shell\Override\SelectRendering.cs" />
+    <Compile Include="SiteCron\SiteCronBase.cs" />
+    <Compile Include="Speak\Requests\BlankSpeakRequestResult.cs" />
+    <Compile Include="Speak\Requests\CanToggleLockRequest.cs" />
+    <Compile Include="Speak\Requests\IsLockedByAnotherRequest.cs" />
+    <Compile Include="Speak\Requests\ZeroSpeakRequestResult.cs" />
+    <Compile Include="Tasks\RebuildSearchIndex.cs" />
+    <Compile Include="Tasks\SiteCronRebuildSearchIndex.cs" />
+    <Compile Include="Utilities\PostGetData.cs" />
+    <Compile Include="Validation\BrokenLinkValidator.cs" />
+    <Compile Include="Validation\ImageWidthHeightValidator.cs" />
+    <Compile Include="Validation\NumberOfSelectedItemsValidator.cs" />
+    <Compile Include="Workflow\Actions\EmailAction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Sitecore.Buckets" />
     <PackageReference Include="Sitecore.ContentSearch" />
+    <PackageReference Include="Sitecore.ExperienceEditor" />
+    <PackageReference Include="Sitecore.ExperienceEditor.Speak" />
     <PackageReference Include="Sitecore.Kernel" />
     <PackageReference Include="Sitecore.Xdb.Tracking.Client" />
+    <PackageReference Include="SiteCron" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AllinaHealth.IOC\AllinaHealth.IOC.csproj">

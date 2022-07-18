@@ -79,6 +79,10 @@
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AllinaHealth.Framework\AllinaHealth.Framework.csproj">
+      <Project>{33bb1996-2ce3-44a7-bb6c-ac00d81d23c0}</Project>
+      <Name>AllinaHealth.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AllinaHealth.IOC\AllinaHealth.IOC.csproj">
       <Project>{0d84f87e-4df1-4055-a886-5d93e1cf0c69}</Project>
       <Name>AllinaHealth.IOC</Name>

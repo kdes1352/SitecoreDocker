@@ -9,6 +9,7 @@
     <PackageReference Update="Glass.Mapper.Sc.90" Version="5.8.180" />
     <PackageReference Update="Glass.Mapper.Sc.90.Core" Version="5.8.180" />
     <PackageReference Update="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" Version="2.0.0" />
+    <PackageReference Update="SiteCron" Version="3.0.9" />
     <!--<PackageReference Update="Antlr" Version="3.5.0.2" />
     <PackageReference Update="bootstrap" Version="3.3.7" />
     <PackageReference Update="Common.Logging" Version="3.3.1" />
@@ -47,7 +48,6 @@
     <PackageReference Update="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Update="Quartz" Version="2.6.2" />
     <PackageReference Update="SharpZipLib" Version="0.86.0" />
-    <PackageReference Update="SiteCron" Version="3.0.9" />
     <PackageReference Include="System.Collections" Version="4.0.11" />
     <PackageReference Include="System.Collections.Concurrent" Version="4.0.12" />
     <PackageReference Include="System.ComponentModel" Version="4.0.1" />
@@ -72,7 +72,10 @@
     <PackageReference Update="Sitecore.Logging.Client" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.NVelocity" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Zip" Version="$(PlatformVersion)" />-->
+    <PackageReference Update="Sitecore.Buckets" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ContentSearch" Version="$(PlatformVersion)" />
+    <PackageReference Update="Sitecore.ExperienceEditor" Version="$(PlatformVersion)" />
+    <PackageReference Update="Sitecore.ExperienceEditor.Speak" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.ExperienceForms.Mvc" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Kernel" Version="$(PlatformVersion)" />
     <PackageReference Update="Sitecore.Mvc" Version="$(PlatformVersion)" />
