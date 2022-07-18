@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinaHealth.IOC", "src\All
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinaHealth.Framework", "src\AllinaHealth.Framework\AllinaHealth.Framework.csproj", "{33BB1996-2CE3-44A7-BB6C-AC00D81D23C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllinaHealth.API", "src\AllinaHealth.API\AllinaHealth.API.csproj", "{08EDCC2C-EF96-4DCE-B25E-971628912ABB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{33BB1996-2CE3-44A7-BB6C-AC00D81D23C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33BB1996-2CE3-44A7-BB6C-AC00D81D23C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33BB1996-2CE3-44A7-BB6C-AC00D81D23C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08EDCC2C-EF96-4DCE-B25E-971628912ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08EDCC2C-EF96-4DCE-B25E-971628912ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08EDCC2C-EF96-4DCE-B25E-971628912ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08EDCC2C-EF96-4DCE-B25E-971628912ABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
