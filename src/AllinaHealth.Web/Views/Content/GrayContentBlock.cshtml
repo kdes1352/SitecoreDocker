@@ -1,0 +1,19 @@
+﻿@{
+    var colSize = AH.DataSourceItem.GetCheckBoxFieldValue("Show content in middle", true) && !Html.Sitecore().Field("Content in middle").ToString().IsEmptyOrNull() ? 4 : 6;
+    var divLine = AH.DataSourceItem.GetCheckBoxFieldValue("Hide Divider Line", true) ? "" : "cms-vertical-divider";
+}
+
+<div class="cms-gray-container row cms-row-flex">
+    <div class="col-md-@colSize col-sm-12 left-col cms-col-flex-item @divLine">
+        @Html.Sitecore().Field("Content on left")
+    </div>
+    @if (colSize == 4)
+    {
+        <div class="col-md-4 col-sm-12 left-col cms-col-flex-item @divLine">
+            @Html.Sitecore().Field("Content in middle")
+        </div>
+    }
+    <div class="col-md-@colSize col-sm-12 left-col cms-col-flex-item">
+        @Html.Sitecore().Field("Content on right")
+    </div>
+</div>

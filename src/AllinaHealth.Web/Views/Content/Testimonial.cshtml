@@ -1,0 +1,21 @@
+﻿@{
+    var textPosition = AH.DataSourceItem.GetInternalLinkFieldItem("Text Position").GetFieldValue("Class Name", "testimonial-image-left");
+    var hasImage = !AH.DataSourceItem.GetMediaUrl("Image", true).IsEmptyOrNull();
+}
+<div class="cms-testimonial">
+    @if (hasImage)
+    {
+        <div class="@textPosition">
+            <div class="testimonial-img-container">
+                <div>@Html.Sitecore().Field("Image")</div>
+            </div>
+            @Html.Partial("~/Views/Content/Partials/TestimonialBody.cshtml")
+        </div>
+    }
+    else
+    {
+        <div class="testimonial-image-none">
+            @Html.Partial("~/Views/Content/Partials/TestimonialBody.cshtml")
+        </div>
+    }
+</div>

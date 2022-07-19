@@ -1,0 +1,212 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.NewsBlog.PostViewModel>
+
+@{
+    var item = Model.NewsBlogItem;
+    var srcStr = item.GetNewsSourceStr();
+    var addedKeyword = false;
+
+    //Photo set-up
+    var hasInternalPhoto = (null != item.Fields["Photo"] && item.Fields["Photo"].HasValue);
+    var hasExternalPhoto = (null != item.Fields["External Photo"] && item.Fields["External Photo"].HasValue);
+    var photoWidth = (string.IsNullOrEmpty(Model.PhotoWidth) ? "" : $"width:{Model.PhotoWidth}px;");
+    var imgPosition = item.GetInternalLinkFieldItem("Photo Position").GetFieldValue("Location", "");
+    var linkUrl = item.GetLinkFieldUrl("Photo Link").IsEmptyOrNull() ? "" : item.GetLinkFieldUrl("Photo Link");
+    var onClickAction = linkUrl == "" ? "" : "window.location = '" + linkUrl + "'";
+    var imageClass = linkUrl == "" ? "" : "img-link";
+
+    Sitecore.Data.Fields.MultilistField keywordsField = item.Fields["Keywords"];
+    var keywords = keywordsField.GetItems();
+    var kwLinks = new Dictionary<string, string>();
+    var kwUrl = AH.GetDictionaryText("NewsBlog:KeywordURL");
+    for (var i = 0; i < keywords.Length; i++)
+    {
+        var kw = keywords[i];
+        if (null != kw)
+        {
+            var key = $"{kw.Fields["Keyword"].Value}-{i.ToString()}";
+            kwLinks.Add(key, $"{kwUrl}?kwid={kw.ID.ToShortID().ToString().ToLower()}");
+        }
+    }
+
+    var pageTitle = !Html.Sitecore().Field("Title", item).ToStringOrEmpty().IsNullOrEmptyTrimmed() ? Html.Sitecore().Field("Title", item).ToStringOrEmpty() : "";
+    var videoUrl = item.GetLinkFieldUrl("Video URL").IsNullOrEmptyTrimmed() ? "" : item.GetLinkFieldUrl("Video URL");
+
+    //If "Video Title" is blank, use "Title" (pageTitle) instead
+    var videoTitle = !Html.Sitecore().Field("Video Title", item).ToStringOrEmpty().IsNullOrEmptyTrimmed() ? Html.Sitecore().Field("Video Title", item).ToStringOrEmpty() : pageTitle;
+
+    //Accordion variables
+    var id = new Sitecore.Data.ID(RenderingContext.Current.Rendering.UniqueId);
+    var display = Sitecore.Context.PageMode.IsExperienceEditor ? string.Empty : "collapse";
+}
+
+<head>
+    <style>
+        .center-img div {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<div>
+    @if (Sitecore.Context.Item.InExperienceEditorOrHasValue("Title"))
+    {
+        <div class="cms-hdg">
+            <h1>
+                @Html.Sitecore().Field("Title", item)
+            </h1>
+        </div>
+    }
+
+    @if (hasInternalPhoto || hasExternalPhoto)
+    {
+        if (String.IsNullOrEmpty(imgPosition) || imgPosition.IndexOf("stacked", StringComparison.Ordinal) < 0)
+        {
+            <div>
+                <div>
+                    <p>
+                        @srcStr
+                        @Html.Raw(item.Fields["Content"])
+                    </p>
+                </div>
+                <div class="@imgPosition">
+                    <div style="@photoWidth">
+                        @if (linkUrl != "")
+                        {
+                            if (hasInternalPhoto)
+                            {
+                                @Html.Sitecore().Field("Photo", item, new { @onclick = onClickAction, @title = linkUrl, @class = imageClass })
+                            }
+                            else
+                            {
+                                <a href="@linkUrl">
+                                    @Html.Raw(item.Fields["External Photo"])
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            if (hasInternalPhoto)
+                            {
+                                @Html.Sitecore().Field("Photo", item)
+                            }
+                            else
+                            {
+                                @Html.Raw(item.Fields["External Photo"])
+                            }
+                        }
+                        @if ("" != Html.Sitecore().Field("Photo Caption", item).ToStringOrEmpty())
+                        {
+                            <div>
+                                @Html.Raw(item.Fields["Photo Caption"])
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="photoContainer clearfix ">
+                <div class="@imgPosition">
+                    <div class="si-image">
+                        <div style="@photoWidth">
+                            @if (linkUrl != "")
+                            {
+                                if (hasInternalPhoto)
+                                {
+                                    @Html.Sitecore().Field("Photo", item, new { @onclick = onClickAction, @title = linkUrl, @class = imageClass })
+                                }
+                                else
+                                {
+                                    <a href="@linkUrl">
+                                        @Html.Raw(item.Fields["External Photo"])
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                if (hasInternalPhoto)
+                                {
+                                    @Html.Sitecore().Field("Photo", item)
+                                }
+                                else
+                                {
+                                    @Html.Raw(item.Fields["External Photo"])
+                                }
+                            }
+                            @if ("" != Html.Sitecore().Field("Photo Caption", item).ToStringOrEmpty())
+                            {
+                                <div>
+                                    @Html.Raw(item.Fields["Photo Caption"])
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="si-content">
+                        <p>
+                            @srcStr
+                            @Html.Raw(item.Fields["Content"])
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div>
+            <p>
+                @srcStr
+                @Html.Raw(item.Fields["Content"])
+            </p>
+        </div>
+    }
+    @*NOTE: Any modifications to the below section should also be made to "Views/NewsBlog/Partials/NewsPostFeatured.cshtml".*@
+    @if (!string.IsNullOrEmpty(videoUrl))
+    {
+        <div style="position: relative;padding-bottom: 56.25%;padding-top: 30px; height: 0; overflow: hidden;">
+            <iframe aria-label="@videoTitle" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="@($"{@videoUrl}")" allowfullscreen="true"></iframe>
+        </div>
+        if ("" != Html.Sitecore().Field("Video Transcript Title", item).ToStringOrEmpty())
+        {
+            <div class="cms-accordion @AH.CmsClass">
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="@($"h{id.ToShortID()}")">
+                            <div class="title collapsed" data-role="title" data-toggle="collapse" href="#@id.ToShortID()" aria-expanded="false" aria-controls="@id.ToShortID()">
+                                <span>
+                                    @Html.Sitecore().Field("Video Transcript Title", item)
+                                </span>
+                            </div>
+                        </div>
+                        <div id="@id.ToShortID()" class="panel-collapse @display" role="tabpanel" aria-labelledby="@($"h{id.ToShortID()}")">
+                            <div class="panel-body">
+                                @if ("" != Html.Sitecore().Field("Video Transcript", item).ToStringOrEmpty())
+                                {
+                                    <div>
+                                        @Html.Raw(item.Fields["Video Transcript"])
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <div>
+        Posted on @item.GetDate("Publish Date").ToString("MMMM dd, yyyy") in
+        @foreach (var keyword in kwLinks.Keys)
+        {
+            var link = kwLinks[keyword];
+            var desc = keyword.Split('-').FirstOrDefault();
+            @Html.Raw($@"{(addedKeyword ? ",&nbsp;" : "")}<a href=""{link}"">{desc}</a>")
+            addedKeyword = true;
+        }
+    </div>
+    <div class="hsg">
+        @Html.Partial("~/Views/NewsBlog/Partials/NewsPostSocialMedia.cshtml")
+    </div>
+</div>

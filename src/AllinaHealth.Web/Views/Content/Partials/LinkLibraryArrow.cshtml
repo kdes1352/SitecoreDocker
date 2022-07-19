@@ -1,0 +1,12 @@
+﻿@{
+    //Inject special  ids and classes to determine which CTAs are "hidden", if any
+    var sectionIdNumber = AH.DataSourceItem.ID.ToSStr().Replace("{", "").Replace("}", "");
+    var sectionClass = "Item-Class_" + sectionIdNumber;
+}
+
+<div class="ll-arrow-right @sectionClass">
+    <svg width="48" height="27" viewBox="0 0 48 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.9467 13.3828L32.0625 13.3828" stroke="#0F69A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M25.0625 21.3828L33.0625 13.3828L25.0625 5.38281" stroke="#0F69A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+</div>

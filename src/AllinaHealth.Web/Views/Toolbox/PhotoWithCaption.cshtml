@@ -1,0 +1,26 @@
+﻿@{
+    var linkUrl = AH.DataSourceItem.GetLinkFieldUrl("Link").IsEmptyOrNull() ? "" : AH.DataSourceItem.GetLinkFieldUrl("Link");
+    var onClickAction = linkUrl == "" ? "" : "window.location = '" + linkUrl + "'";
+    var imageClass = linkUrl == "" ? "" : "img-link";
+}
+<div>
+    @if (Html.Sitecore().Field("Image").ToStringOrEmpty() != "")
+    {
+        <div class="photoContainer clearfix">
+            @if (linkUrl != "")
+            {
+                @Html.Sitecore().Field("Image", new { @onclick = onClickAction, @title = linkUrl, @class = imageClass })
+            }
+            else
+            {
+                @Html.Sitecore().Field("Image")
+            }
+        </div>
+    }
+    @if (Html.Sitecore().Field("Caption").ToStringOrEmpty() != "")
+    {
+        <div>
+            @Html.Sitecore().Field("Caption")
+        </div>
+    }
+</div>

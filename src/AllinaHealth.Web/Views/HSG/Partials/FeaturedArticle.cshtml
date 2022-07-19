@@ -1,0 +1,24 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel>
+@{
+    var featuredArticle = Model.RelatedArticles.FirstOrDefault();
+}
+<div class="featured-article">
+    <div class="featured-article-content">
+        @if (featuredArticle != null)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="t-align-left">@featuredArticle.ArticleItem.GetFieldValue("Article Title")</h2>
+                    <p class="dateline">@AH.GetDictionaryText("HSG:CategoriesArticlePosted") @featuredArticle.ArticleItem.GetDate("Article Posted Date").ToString("MMMM d, yyyy")</p>
+                    <p>@featuredArticle.ArticleItem.GetFieldValue("Teaser Text")</p>
+                    <a href="@LinkManager.GetItemUrl(featuredArticle.ArticleItem)" title="@AH.GetDictionaryText("HSG:CategoriesContinueReading")">@AH.GetDictionaryText("HSG:CategoriesContinueReading")</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="@LinkManager.GetItemUrl(featuredArticle.ArticleItem)" title="@AH.GetDictionaryText("HSG:CategoriesContinueReading")">
+                        @Html.Sitecore().Field("Hero Image", featuredArticle.ArticleItem)
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

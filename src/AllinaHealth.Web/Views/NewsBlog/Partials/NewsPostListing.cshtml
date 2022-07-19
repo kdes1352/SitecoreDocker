@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Sitecore.Data.Items.Item>
+
+@foreach (var item in Model)
+{
+    var srcStr = item.GetNewsSourceStr();
+
+    <div class="result-container">
+        <div>
+            <a href="@LinkManager.GetItemUrl(item)" title="@item.GetFieldValue("Title")">
+                @item.GetFieldValue("Title")
+            </a>
+        </div>
+        <div class="result-desc">
+            @srcStr
+            &nbsp;
+            @item.GetFieldValue("Meta Description")
+        </div>
+        <div class="result-desc">
+            <em>@item.GetDate("Publish Date").ToLocalTime().ToString("MMMM dd, yyyy")</em>
+        </div>
+    </div>
+}

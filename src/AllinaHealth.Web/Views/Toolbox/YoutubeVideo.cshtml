@@ -1,0 +1,32 @@
+﻿@{
+    var id = new Sitecore.Data.ID(RenderingContext.Current.Rendering.UniqueId);
+    var display = Sitecore.Context.PageMode.IsExperienceEditor ? string.Empty : "collapse";
+}
+<div class="@AH.CmsClass">
+    <div style="position: relative;padding-bottom: 56.25%;padding-top: 30px; height: 0; overflow: hidden;">
+        <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="https://www.youtube.com/embed/@AH.DataSourceItem.GetFieldValue("Youtube ID")" frameborder="0" allowfullscreen></iframe>
+    </div>
+    @if (AH.DataSourceItem.InExperienceEditorOrHasValue("Transcript Name"))
+    {
+        <div class="cms-accordion">
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="@($"h{id.ToShortID()}")">
+                        <div class="title collapsed" data-role="title" data-toggle="collapse" href="#@id.ToShortID()" aria-expanded="false" aria-controls="@id.ToShortID()">
+                            <span>
+                                @Html.Sitecore().Field("Transcript Name")
+                            </span>
+                        </div>
+                    </div>
+                    <div id="@id.ToShortID()" class="panel-collapse @display" role="tabpanel" aria-labelledby="@($"h{id.ToShortID()}")">
+                        <div class="panel-body">
+                            @Html.Sitecore().Field("Transcript")
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

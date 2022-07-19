@@ -1,0 +1,46 @@
+﻿@{
+    var i = Sitecore.Context.Item;
+    var boilerplates = i.GetSelectedItems("Boilerplates");
+    var contact = i.GetSelectedItems("Contact");
+    var isEEorHasContent = Sitecore.Context.PageMode.IsExperienceEditor || Sitecore.Context.Item.Visualization.GetRenderings(Sitecore.Context.Device, false).Any(e => e.Placeholder.Contains("Sidebar"));
+    var pageTitle = Html.Sitecore().Field("Page Title").ToSStr();
+}
+<div>
+    <div class="container-fluid">
+        <div class="content row cms-container">
+            <div class="@(isEEorHasContent ? "col-md-9 col-md-push-3 cms-container" : "col-md-12 cms-container")">
+                @if (!pageTitle.IsNullOrEmptyTrimmed())
+                {
+                    <div class="cms-hdg">
+                        <h1>@pageTitle</h1>
+                    </div>
+                }
+                <div>
+                    <p>
+                        @Html.Sitecore().Field("Content")
+                    </p>
+                </div>
+                @foreach (var aboutSection in boilerplates)
+                {
+                    var title = Html.Sitecore().Field("Title", aboutSection).ToSStr();
+                    if (!title.IsNullOrEmptyTrimmed())
+                    {
+                        <div class="cms-hdg">
+                            <h3>@title</h3>
+                        </div>
+                    }
+                    <div>
+                        @Html.Sitecore().Field("Description", aboutSection)
+                    </div>
+                }
+                @Html.Sitecore().DynamicPlaceholder("Body")
+            </div>
+            @if (isEEorHasContent)
+            {
+                <div class="col-md-3 col-md-pull-9 cms-container">
+                    @Html.Sitecore().DynamicPlaceholder("Sidebar")
+                </div>
+            }
+        </div>
+    </div>
+</div>

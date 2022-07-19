@@ -1,0 +1,22 @@
+﻿@{
+    var id = new Sitecore.Data.ID(RenderingContext.Current.Rendering.UniqueId);
+    var display = Sitecore.Context.PageMode.IsExperienceEditor ? string.Empty : "collapse";
+}
+
+@if (AH.DataSourceItem.InExperienceEditorOrHasValue("Heading"))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="@($"h{id.ToShortID()}")">
+            <div class="title collapsed" data-role="title" data-toggle="collapse" href="#@id.ToShortID()" aria-expanded="false" aria-controls="@id.ToShortID()">
+                <span>
+                    @Html.Sitecore().Field("Heading")
+                </span>
+            </div>
+        </div>
+        <div id="@id.ToShortID()" class="panel-collapse @display" role="tabpanel" aria-labelledby="@($"h{id.ToShortID()}")">
+            <div class="panel-body">
+                @Html.Sitecore().Field("Description")
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<Dictionary<string, List<Sitecore.Data.Items.Item>>>
+<div class="@AH.CmsClass">
+
+    <ul class="service-browse-letters">
+        @foreach (var item in Model)
+        {
+            if (null == item.Value || item.Value.Count == 0)
+            {
+                <li role="presentation" class="inactive">@item.Key</li>
+            }
+            else
+            {
+                <li role="presentation">
+                    <a aria-controls="browse-@item.Key" role="tab" data-toggle="pill" href="#browse-@item.Key" id="s-@item.Key" class="btnBrowse" title="Browse @item.Key">@item.Key</a>
+                </li>
+            }
+        }
+    </ul>
+
+    <div class="tab-content">
+        @foreach (var item in Model)
+        {
+            if (null != item.Value && item.Value.Count > 0)
+            {
+                var splitter = (item.Value.Count / 3) + 1;
+                var cnt = 0;
+
+                <div class="tab-pane fade" id="browse-@item.Key">
+                    <h3 class="module-subtitle"><em>@item.Value.Count beginning with @item.Key.ToUpper()</em></h3>
+                    <div class="row find-service-list">
+                        <ul class="col-sm-4">
+                            @foreach (var link in item.Value)
+                            {
+                                cnt++;
+
+                                <li>
+                                    @Html.Sitecore().LinkAndOtherField("Link", "Link Text", link, new { title = link.GetFieldValue("Link Text"), haschildren = true })
+                                </li>
+
+                                if ((cnt % splitter) == 0 && cnt != item.Value.Count)
+                                {
+                                    @Html.Raw("</ul><ul class=\"col-sm-4\">")
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

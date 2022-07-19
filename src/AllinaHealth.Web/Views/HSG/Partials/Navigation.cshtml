@@ -1,0 +1,19 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.NavigationViewModel>
+<nav class="nav-hsg align-self-right" id="navCategories">
+    <ul>
+        @foreach (var category in Model.List.Where(t => t.TopicClassName != "").OrderBy(e => e.CategoryItem.GetFieldValue("Page Title")))
+        {
+            <li class="nav-item @category.TopicClassName" id="HSG_Topic_@category.CategoryItem.GetFieldValue("Page Title")">
+
+                <a href="@LinkManager.GetItemUrl(category.CategoryItem)" title="View @category.ClassName topic">
+                    <img class="d-sm-block d-md-none" src="@($"https://{AH.WellclicksHostName}/content/images/hsg/icon-{category.ClassName}.svg")" alt="@($"View {category.ClassName} topic")" />
+
+                    <div class="content">
+                        <p class="nav-item--label">@category.CategoryItem.GetFieldValue("Page Title").ToUpper()</p>
+                        <p class="d-sm-block d-md-none">@category.CategoryItem.GetFieldValue("Tag Line").ToUpper()</p>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

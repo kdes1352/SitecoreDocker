@@ -1,0 +1,15 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.CategoryViewModel>
+<div class="hsg hsg-main hsg--@Model.TopicClassName">
+    <div class="container">
+        @Html.Partial("~/Views/HSG/Partials/Header.cshtml")
+        <div class="title-box">
+            <h1>@Html.Sitecore().Field("Page Title")</h1>
+            <p>@Html.Sitecore().Field("Tag Line")</p>
+            <div class="topic-icon"></div>
+        </div>
+        @Html.Partial("~/Views/HSG/Partials/NewestFeaturedArticle.cshtml", Model)
+        @Html.Partial("~/Views/HSG/Partials/NewestArticleFMAS.cshtml", Model)
+        @Html.Partial("~/Views/HSG/Partials/Footer.cshtml")
+        @Html.Action("ExploreHSG", "HSG")
+    </div>
+</div>

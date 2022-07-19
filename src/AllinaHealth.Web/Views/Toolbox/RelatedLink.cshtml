@@ -1,0 +1,6 @@
+﻿@{
+    var iconLink = AH.DataSourceItem.GetInternalLinkFieldItem("Icon").GetFieldValue("Class Name", "icon-document");
+}
+<li class="@iconLink">
+    @Html.Sitecore().LinkFieldWithString("Link", "<div>" + @Html.Sitecore().Field("Link Text") + "</div>")
+</li>

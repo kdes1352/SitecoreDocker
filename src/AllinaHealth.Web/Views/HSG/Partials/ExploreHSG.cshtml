@@ -1,0 +1,15 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.NavigationViewModel>
+<div class="explore-hsg">
+    <h2>EXPLORE HEALTHY SET GO</h2>
+    <div class="row">
+        @foreach (var category in Model.List.Where(t => t.TopicClassName != "").OrderBy(e => e.CategoryItem.GetFieldValue("Page Title")))
+        {
+            <div class="col col-md-6">
+                <a href="@LinkManager.GetItemUrl(category.CategoryItem)" class="explore-topic--cta fullbleed explore-topic--cta--@category.TopicClassName" title="Go to @category.ClassName topic" id="Go_To_@(category.ClassName)_Topic">
+                    <h3>@category.CategoryItem.GetFieldValue("Page Title").ToUpper()</h3>
+                    <p>@category.CategoryItem.GetFieldValue("Tag Line")</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>

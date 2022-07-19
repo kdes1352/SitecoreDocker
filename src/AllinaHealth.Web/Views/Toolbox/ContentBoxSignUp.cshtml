@@ -1,0 +1,7 @@
+﻿@Html.Sitecore().Field("Image")
+<h4 class="text-left">@Html.Sitecore().Field("Title")</h4>
+<p>@Html.Sitecore().Field("Description")</p>
+
+<div class="form-inline">
+    @Html.Sitecore().LinkAndOtherField("Link", "Link Text", null, new { @class = "ahn-btn", haschildren = true })
+</div>

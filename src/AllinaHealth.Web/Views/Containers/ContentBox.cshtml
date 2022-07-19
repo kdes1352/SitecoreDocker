@@ -1,0 +1,32 @@
+﻿ @* ReSharper disable once CSharpWarnings::CS0618 *@
+ @inherits GlassView<AllinaHealth.Models.Allina_Health.Datasources.Containers.IContent_Box>
+
+<div>
+    @*style="width: 100%; float: left;">*@
+    <ul>
+        <li>
+            <div>
+                <div>
+                    <div class="widgetBody">
+                        <div>
+                            <div class="learn-section-hdr row">
+                                <div class="col-sm-6">
+                                    <h3 class="h2" id="hsgBlog">
+                                        @Editable(Model, x => x.Title)
+                                    </h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    @Editable(Model, x => x.Description)
+                                </div>
+                            </div>
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            @Html.Sitecore().DynamicPlaceholder("Content Box")
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,104 @@
+﻿@{
+    //Inject special  ids and classes to determine which CTAs are "hidden", if any
+    var sectionIdNumber = AH.DataSourceItem.ID.ToSStr().Replace("{", "").Replace("}", "");
+    var sectionId = "Item-ID_" + sectionIdNumber;
+
+    //Go through each of the link fields & build a list based on what fields aren't empty, then
+    //later, go through the list of links & display them appropriately.
+    List<string> sectionLinksTextList = new List<string>(), sectionLinksUrlsList = new List<string>();
+    if (sectionLinksUrlsList == null)
+    {
+        throw new ArgumentNullException(nameof(sectionLinksUrlsList));
+    }
+    for (var v = 1; v <= 6; v++)
+    {
+        var txtFieldName = "Link " + v.ToSStr() + " Text";
+        var urlFieldName = "Link " + v.ToSStr() + " Link";
+        var txtFieldValue = AH.DataSourceItem.Fields[txtFieldName] == null ? "" : AH.DataSourceItem.Fields[txtFieldName].ToSStr();
+        var urlFieldValue = AH.DataSourceItem.GetLinkFieldUrl(urlFieldName).IsEmptyOrNull() ? "" : AH.DataSourceItem.GetLinkFieldUrl(urlFieldName);
+        if (txtFieldValue != "" || urlFieldValue != "")
+        {
+            sectionLinksTextList.Add(txtFieldValue);
+            sectionLinksUrlsList.Add(urlFieldValue);
+        }
+    }
+}
+
+<div class="ll-listing">
+    <div class="ll-listing-header" id="@sectionId">
+        <div class="ll-listing-heading">
+            @if (!AH.DataSourceItem.GetLinkFieldUrl("Section Header Link").IsNullOrEmptyTrimmed())
+            {
+                <a href="@AH.DataSourceItem.GetLinkFieldUrl("Section Header Link")" title="@AH.DataSourceItem.GetLinkFieldUrl("Section Header Link")">
+                    <h3 class="ll-listing-title">
+                        @Html.Sitecore().Field("Section Header Text")
+                    </h3>
+                    @Html.Partial("~/Views/Content/Partials/LinkLibraryArrow.cshtml")
+                </a>
+            }
+            else
+            {
+                <h3 class="ll-listing-title">
+                    @Html.Sitecore().Field("Section Header Text")
+                </h3>
+            }
+        </div>
+        <div class="ll-listing-divider"></div>
+    </div>
+    @if (sectionLinksTextList.Any())
+    {
+        <div class="ll-listing-items">
+            <div class="ll-listing-linkrow">
+                @for (var l = 1; l <= (sectionLinksTextList.Count >= 2 ? 2 : 1); l++)
+                {
+                    var urlValue = "Link " + l.ToSStr() + " Link";
+                    var txtValue = "Link " + l.ToSStr() + " Text";
+                    <div class="ll-listing-linkrow-item">
+                        <a href="@AH.DataSourceItem.GetLinkFieldUrl(urlValue)">
+                            @AH.DataSourceItem.Fields[txtValue]
+                        </a>
+                    </div>
+                }
+            </div>
+            @if (sectionLinksTextList.Count > 2)
+            {
+                <div class="ll-listing-linkrow">
+                    @for (var l = 3; l <= (sectionLinksTextList.Count >= 4 ? 4 : 3); l++)
+                    {
+                        var urlValue = "Link " + l.ToSStr() + " Link";
+                        var txtValue = "Link " + l.ToSStr() + " Text";
+                        <div class="ll-listing-linkrow-item">
+                            <a href="@AH.DataSourceItem.GetLinkFieldUrl(urlValue)">
+                                @AH.DataSourceItem.Fields[txtValue]
+                            </a>
+                        </div>
+                    }
+                </div>
+                if (sectionLinksTextList.Count > 4)
+                {
+                    <div class="ll-listing-linkrow">
+                        @for (var l = 5; l <= sectionLinksTextList.Count; l++)
+                        {
+                            var urlValue = "Link " + l.ToSStr() + " Link";
+                            var txtValue = "Link " + l.ToSStr() + " Text";
+                            <div class="ll-listing-linkrow-item">
+                                <a href="@AH.DataSourceItem.GetLinkFieldUrl(urlValue)">
+                                    @AH.DataSourceItem.Fields[txtValue]
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+    @if (!AH.DataSourceItem.GetLinkFieldUrl("Section CTA Link").IsNullOrEmptyTrimmed())
+    {
+        <div class="ll-primary-cta">
+            <a href="@AH.DataSourceItem.GetLinkFieldUrl("Section CTA Link")" title="@AH.DataSourceItem.GetLinkFieldUrl("Section CTA Link")">
+                @Html.Sitecore().Field("Section CTA Text")
+                @Html.Partial("~/Views/Content/Partials/LinkLibraryArrow.cshtml")
+            </a>
+        </div>
+    }
+</div>

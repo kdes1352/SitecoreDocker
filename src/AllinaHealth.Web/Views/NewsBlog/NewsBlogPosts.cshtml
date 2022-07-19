@@ -1,0 +1,14 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.NewsBlog.PostViewModel>
+<div>
+    <div class="container-fluid">
+        <div class="content row cms-container">
+            <div class="col-md-3 col-md-push-9 cms-container">
+                @Html.Partial("~/Views/NewsBlog/Partials/NewsBlogMenu.cshtml", Model.MenuTree)
+            </div>
+            <div class="col-md-9 col-md-pull-3 cms-container">
+                @Html.Partial("~/Views/NewsBlog/Partials/NewsPost.cshtml", Model)
+            </div>
+
+        </div>
+    </div>
+</div>

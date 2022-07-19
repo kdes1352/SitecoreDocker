@@ -1,0 +1,39 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.NewsBlog.SearchByRelatedItemPageViewModel>
+<div>
+    <div class="container-fluid">
+        <div class="content row cms-container">
+            <div class="col-md-3 col-md-push-9 cms-container">
+                @Html.Partial("~/Views/NewsBlog/Partials/NewsBlogMenu.cshtml", Model.MenuTree)
+            </div>
+            <div class="col-md-9 col-md-pull-3 cms-container">
+                <h1>@Html.Sitecore().Field("Page Title", Sitecore.Context.Item)</h1>
+                <div>
+                    @if (null != Model.Posts && Model.Posts.Count > 0)
+                    {
+                        <div class="content row cms-container cms-global-results">
+                            @Html.Partial("~/Views/NewsBlog/Partials/NewsPostListing.cshtml", Model.Posts)
+                        </div>
+                        if (Model.Page > 1 || Model.HasMoreResults)
+                        {
+                            <div>
+                                @if (Model.Page > 1)
+                                {
+                                    <a class="aos-btn" href="@($"{LinkManager.GetItemUrl(Sitecore.Context.Item)}?catid={Model.SearchItemID}&pg={(Model.Page - 1).ToString()}")">Show previous</a>
+                                }
+                                @if (Model.HasMoreResults)
+                                {
+                                    <a class="aos-btn" href="@($"{LinkManager.GetItemUrl(Sitecore.Context.Item)}?catid={Model.SearchItemID}&pg={(Model.Page + 1).ToString()}")">Show more</a>
+                                }
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <p>Check back later for posting updates</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@{
+    var selectedQuickFactsItemsList = Sitecore.Context.Item.GetSelectedItems("Quick Fact");
+    if (selectedQuickFactsItemsList.Count > 3)
+    {
+        selectedQuickFactsItemsList = selectedQuickFactsItemsList.GetRange(0, 3);
+    }
+}
+<div class="quick-facts">
+    @if (selectedQuickFactsItemsList.Count > 0)
+    {
+        <ul>
+            @foreach (var i in selectedQuickFactsItemsList)
+            {
+                <li class="quick-fact">@Html.Sitecore().Field("Quick Fact Text", i)</li>
+            }
+        </ul>
+    }
+</div>

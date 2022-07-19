@@ -1,0 +1,8 @@
+﻿@Html.Sitecore().BeginField("Link", new { @class = "cms-choice-btn", haschildren = true })
+<span class="cms-choice-btn__icon">
+    @Html.Sitecore().Field("Image")
+</span>
+<span>
+    @Html.Sitecore().Field("Link Text")
+</span>
+@Html.Sitecore().EndField()

@@ -1,0 +1,24 @@
+﻿@{
+    var textPosition = AH.DataSourceItem.GetInternalLinkFieldItem("Text Position").GetFieldValue("Location", "cms-stacked-image-left");
+    var linkUrl = AH.DataSourceItem.GetLinkFieldUrl("Link").IsEmptyOrNull() ? "" : AH.DataSourceItem.GetLinkFieldUrl("Link");
+    var onClickAction = linkUrl == "" ? "" : "window.location = '" + linkUrl + "'";
+    var imageClass = linkUrl == "" ? "" : "img-link";
+}
+
+<div class="photoContainer clearfix @AH.CmsClass">
+    <div class="@textPosition">
+        <div class="si-image">
+            @if (linkUrl != "")
+            {
+                @Html.Sitecore().Field("Image", new { onclick = onClickAction, @title = linkUrl, @class = imageClass })
+            }
+            else
+            {
+                @Html.Sitecore().Field("Image")
+            }
+        </div>
+        <div class="si-content">
+            @Html.Sitecore().Field("Text")
+        </div>
+    </div>
+</div>

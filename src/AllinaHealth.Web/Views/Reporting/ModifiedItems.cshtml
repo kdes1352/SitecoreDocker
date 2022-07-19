@@ -1,0 +1,225 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.Reporting.ModifiedItemsViewModel>
+@{
+    var term = (Model.UseModifiedDate) ? "Modified" : "Created";
+}
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600italic,700italic,300,600,700,800" rel="stylesheet">
+    <link href="/sitecore/shell/themes/standard/default/Default.css" rel="stylesheet">
+    <link href="/sitecore/shell/controls/Lib/Flexie/flex.css" rel="stylesheet">
+    <link href="/sitecore/shell/themes/standard/default/Content Manager.css" rel="stylesheet">
+    <link href="/sitecore/shell/themes/standard/default/Ribbon.css" rel="stylesheet">
+    <link href="/sitecore/shell/Themes/Standard/default/Grid.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/sitecore/images/favicon.ico">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body id="PageBody" style="background: transparent" marginwidth="0" marginheight="0">
+<div style="position: fixed; top: 0; left: 0">
+</div>
+<div class="scFlexColumnContainer scHeight100">
+    <div id="GridCell" class="scFlexContent">
+        <table cellpadding="0" cellspacing="0" border="0" class="Grid" style="height: 198px; width: 1408px;">
+            <tbody>
+            <tr>
+                <td class="GridHeader">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tbody>
+                        <tr>
+                            <td nowrap="" align="left"><div class="GridHeaderText"></div></td>
+                            <td nowrap="" align="right">
+                                <div class="GridHeaderText scTextAlignRight ">
+                                    <form action="@($"/AH/Reporting/{term}Items")" method="post">
+                                        <span>Find all @term.ToLower() items from</span>
+                                        <input type="text" id="startDate" name="startDate" style="width: 100px; display: inline;" value="@(Model.StartDate > DateTime.MinValue ? Model.StartDate.ToString(DateFormat.Default) : string.Empty)" />
+                                        <span class="fa fa-calendar-alt from_icon " style="padding-right: 6px; font-size: large;"></span>
+
+                                        <span>to</span>
+                                        <input type="text" id="endDate" name="endDate" style="width: 100px; display: inline;" value="@(Model.EndDate > DateTime.MinValue ? Model.EndDate.ToString(DateFormat.Default) : string.Empty)" />
+                                        <span class="fa fa-calendar-alt to_icon" style="padding-right: 6px; font-size: large;"></span>
+                                        <span>order by:</span>
+                                        <select id="sort" name="sort" style="width: 100px; display: inline; margin-right: 15px;">
+                                            <option value="item" @(Model.Sort == "item" ? "selected" : string.Empty)>Item</option>
+                                            <option value="term" @(Model.Sort == "term" ? "selected" : string.Empty)>@term</option>
+                                        </select>
+                                        <input type="hidden" id="isDownload" name="isDownload" value="false" />
+                                        <button id="_btnSubmit" type="submit" style="margin-right: 15px;" onclick="$('#isDownload').val('false');">Find</button>
+
+                                        <button id="_btnDownload" type="submit" onclick="$('#isDownload').val('true');">Download</button>
+                                    </form>
+                                    <script>
+
+                                        $(function () {
+                                            var dateFormat = "mm/dd/yy",
+                                                from = $("#startDate")
+                                                    .datepicker({
+                                                        defaultDate: "+0w",
+                                                        changeMonth: false,
+                                                        numberOfMonths: 1,
+                                                        maxDate: "+0d"
+                                                    })
+                                                    .on("change", function () {
+                                                        to.datepicker("option", "minDate", getDate(this));
+                                                    }),
+                                                to = $("#endDate").datepicker({
+                                                        defaultDate: "+0w",
+                                                        changeMonth: false,
+                                                        numberOfMonths: 1,
+                                                        maxDate: "+0d"
+                                                    })
+
+                                                    .on("change", function () {
+                                                        from.datepicker("option", "maxDate", getDate(this));
+                                                    });
+                                            function getDate(element) {
+                                                var date;
+                                                try {
+                                                    date = $.datepicker.parseDate(dateFormat, element.value);
+                                                } catch (error) {
+                                                    date = NULL;
+                                                }
+
+                                                return date;
+                                            }
+                                        });
+                                        $('.from_icon').click(function () {
+                                            $("#startDate").datepicker("show");
+
+                                        });
+                                        $('.to_icon').click(function () {
+                                            $("#endDate").datepicker("show");
+
+                                        });
+                                    </script>
+
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                @if (Model.List != null && Model.List.Count > 0)
+                {
+                    <td id="Roles_dom" valign="top" style="vertical-align: top; width: 1408px;">
+                        <table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+                            <tbody>
+                            <tr class="HeadingRow">
+                                <td align="left" class="HeadingCell">
+                                    <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="white-space:nowrap;text-align:left;" align="left" class="HeadingCellText">Item</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td align="left" class="HeadingCell">
+                                    <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="white-space:nowrap;text-align:left;" align="left" class="HeadingCellText">@term</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td align="left" class="HeadingCell">
+                                    <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="white-space:nowrap;text-align:left;" align="left" class="HeadingCellText">@term By</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td align="left" class="HeadingCell">
+                                    <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="white-space:nowrap;text-align:left;" align="left" class="HeadingCellText">&nbsp;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            @foreach (var i in Model.List)
+                            {
+                                <tr class="Row">
+                                    <td align="left" class="DataCell">
+                                        <div style="padding:0px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:1386px;text-align:left;">
+                                            @i.Paths.FullPath
+                                        </div>
+                                    </td>
+                                    <td align="left" class="DataCell">
+                                        <div style="padding:0px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:1386px;text-align:left;">
+                                            @if (Model.UseModifiedDate)
+                                            {
+                                                @i.Statistics.Updated.ToString(DateFormat.Default)
+                                            }
+                                            else
+                                            {
+                                                @i.Statistics.Created.ToString(DateFormat.Default)
+                                            }
+                                        </div>
+                                    </td>
+                                    <td align="left" class="DataCell">
+                                        <div style="padding:0px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:1386px;text-align:left;">
+                                            @if (Model.UseModifiedDate)
+                                            {
+                                                var name = AllinaHealth.Framework.Pipelines.GetContentEditorWarnings.IsLocked.GetUserName(i.Statistics.UpdatedBy);
+                                                var displayName = !string.IsNullOrEmpty(name) ? name : i.Statistics.UpdatedBy;
+
+                                                @displayName
+                                            }
+                                            else
+                                            {
+                                                var name = AllinaHealth.Framework.Pipelines.GetContentEditorWarnings.IsLocked.GetUserName(i.Statistics.CreatedBy);
+                                                var displayName = !string.IsNullOrEmpty(name) ? name : i.Statistics.CreatedBy;
+
+                                                @displayName
+                                            }
+                                        </div>
+                                    </td>
+                                    <td align="left" class="DataCell">
+                                        <div style="padding:0px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:1386px;text-align:left;">
+                                            <a style="text-decoration: underline; cursor: pointer;" href="@string.Format("/sitecore/shell/sitecore/content/Applications/Content Editor.aspx?id={0}&la={1}&fo={0}", i.ID, i.Language)" target="_blank">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </td>
+                }
+                else
+                {
+                    <td id="Roles_dom" valign="top" style="vertical-align: top; width: 1408px;">
+                        <table style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+                            <tbody>
+                            <tr class="HeadingRow">
+                                <td align="left" class="HeadingCell">
+                                    <table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+                                        <tbody>
+                                        <tr>
+                                            <td style="white-space:nowrap;text-align:left;" align="left" class="HeadingCellText">No items found. Please adjust the date filter.</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                }
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,3 @@
+﻿<li>
+    <a style="background-image: url(@AH.DataSourceItem.GetMediaUrl("Image"))" href="@((Sitecore.Context.PageMode.IsExperienceEditor) ? "#" : AH.DataSourceItem.GetLinkFieldUrl("Link"))">@Html.Sitecore().Field("Text")</a>
+</li>

@@ -1,0 +1,17 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<List<Sitecore.Data.Items.Item>>
+
+<div class="cms-container">
+    @foreach (var i in Model)
+    {
+        <div class="cms-news-listing">
+            <div class="news-date">
+                @i.GetDate("Article Posted Date").ToString(AllinaHealth.Models.Constants.DateFormat.Default)
+            </div>
+            <div class="news-title">
+                <a href="@LinkManager.GetItemUrl(i)" title="@i.GetFieldValue("Article Title")">
+                    @i.GetFieldValue("Article Title")
+                </a>
+            </div>
+        </div>
+    }
+</div>

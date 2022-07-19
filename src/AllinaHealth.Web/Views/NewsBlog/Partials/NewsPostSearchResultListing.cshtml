@@ -1,0 +1,64 @@
+﻿@model IEnumerable<AllinaHealth.Models.ContentSearch.NewsBlogPostResultItem>
+
+@foreach (var m in Model)
+{
+    var srcStr = m.GetItem().GetNewsSourceStr();
+
+    var pageUrl = m.Url.ToLower();
+    //Temporary fix for indexed AllinaHealth.org URL's
+    if (pageUrl.IndexOf("cm.allinahealth.org") > 0)
+    {
+        pageUrl = pageUrl.Replace("cm.allinahealth.org", "www.allinahealth.org");
+    }
+    <div class="result-container">
+        <div>
+            <a href="@pageUrl" title="@m.Title">
+                @if (m.Highlights.Keys.Contains("title_t") && !string.IsNullOrEmpty(m.Highlights["title_t"]))
+                {
+                    @Html.Raw(m.Highlights["title_t"])
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(m.Title))
+                    {
+                        @m.Title
+                    }
+                    else
+                    {
+                        <em>No Page Title Available</em>
+                    }
+                }
+            </a>
+        </div>
+        <div class="result-desc">
+            @if (m.Highlights.Keys.Contains("content_t") && !string.IsNullOrEmpty(m.Highlights["content_t"]))
+            {
+                @srcStr
+                @:&nbsp;
+                @Html.Raw(m.Highlights["content_t"])
+            }
+            else if (m.Highlights.Keys.Contains("meta_description_t") && !string.IsNullOrEmpty(m.Highlights["meta_description_t"]))
+            {
+                @srcStr
+                @:&nbsp;
+                @Html.Raw(m.Highlights["meta_description_t"])
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(m.MetaDescription))
+                {
+                    @srcStr
+                    @:&nbsp;
+                    @m.MetaDescription
+                }
+                else
+                {
+                    <em>No Description Available</em>
+                }
+            }
+        </div>
+        <div class="result-desc">
+            <em>@m.PublishDate.ToLocalTime().ToString("MMMM dd, yyyy")</em>
+        </div>
+    </div>
+}

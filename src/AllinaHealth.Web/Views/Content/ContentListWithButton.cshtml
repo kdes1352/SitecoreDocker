@@ -1,0 +1,22 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<Dictionary<string, List<Sitecore.Data.Items.Item>>>
+
+<div class="cms-content-block clearfix bb-15">
+    <div class="col-md-8 col-sm-12 pr-0 pl-0">
+        <h3 class="fs-chg">@Html.Sitecore().Field("Header")</h3>
+        <div>
+            @Html.Sitecore().Field("Content")
+        </div>
+    </div>
+    @if (!Model.Any(i => null != i.Value && i.Value.Count > 0))
+    {
+    }
+    else
+    {
+        foreach (var link in Model.FirstOrDefault(i => null != i.Value && i.Value.Count > 0).Value)
+        {
+            <div class="col-md-4 col-sm-12 pr-0">
+                @Html.Sitecore().LinkAndOtherField("Link", "Link Text", link, new { @title = link.GetFieldValue("Link Text"), @class = link.GetInternalLinkFieldItem("Color").GetFieldValue("Class Name", "aos-btn"), haschildren = true })
+            </div>
+        }
+    }
+</div>

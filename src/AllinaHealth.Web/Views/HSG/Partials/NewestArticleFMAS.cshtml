@@ -1,0 +1,84 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.CategoryViewModel>
+@{
+    List<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel> list = null;
+    if (Model.RelatedArticles.Count > 1)
+    {
+        list = Model.RelatedArticles.ToList().Skip(1).ToList();
+    }
+}
+<div class="article-fmas">
+
+    @{
+        var hsgSection = 0;
+        var articleCounter = 0;
+    }
+
+    <div class="fmas">
+        @if (list != null)
+        {
+            foreach (var article in list.Where(article => article?.ArticleItem != null))
+            {
+                articleCounter += 1;
+                if (articleCounter % 6 == 1)
+                {
+                    hsgSection += 1;
+                }
+                var isDisplayedWhenPageLoads = hsgSection > 1 ? "none" : "block";
+                var hsgSecId = "section" + hsgSection;
+                var hsgArticleId = "article" + articleCounter;
+
+                <a href="@LinkManager.GetItemUrl(article.ArticleItem)" class="article-fma hsg-article-item @hsgSecId" id="@hsgArticleId" style="display:@isDisplayedWhenPageLoads">
+                    @Html.Sitecore().Field("Hero Image", article.ArticleItem)
+                    <h3>@article.ArticleItem.GetFieldValue("Article Title")</h3>
+                    <p class="dateline">@AH.GetDictionaryText("HSG:CategoriesArticlePosted") @article.ArticleItem.GetDate("Article Posted Date").ToString("MMMM d, yyyy")</p>
+                </a>
+            }
+        }
+    </div>
+    @if (list != null && list.Count > 6)
+    {
+        <div class="curtain">
+            <button class="btn show-more-btn" title="@AH.GetDictionaryText("HSG:CategoriesShowMore")" id="Show_More_Articles">@AH.GetDictionaryText("HSG:CategoriesShowMore")</button>
+        </div>
+        <script>
+            (function ($) {
+                var counter = 1;
+                var newSecRow1Counter = 0;
+                var newSecRow2Counter = 0;
+                var $fmas = $('.fmas');
+                var $curtain = $('.curtain');
+                var $fma = $('.article-fma');
+                var $btn = $('.curtain .btn');
+
+                setTimeout(function () {
+                    var fmaFullHeight = $fmas.outerHeight();
+                    $fmas.attr('data-full-height', fmaFullHeight);
+                    $fmas.height($fma.outerHeight() * 2);
+                }, 500);
+
+                $btn.on('click', function (event) {
+
+                    newSecRow1Counter = (counter * 6) + 1;
+                    newSecRow2Counter = (counter * 6) + 4;
+                    counter += 1;
+
+                    var time = ($fma.outerHeight() / window.fmaFullHeight * 2000);
+                    $('.section' + counter).show();
+
+                    var newSecRow1 = $('#article' + newSecRow1Counter).get(0) != null ? parseFloat($('#article' + newSecRow1Counter).get(0).getBoundingClientRect().height.toFixed(2)) : 0;
+                    var newSecRow2 = $('#article' + newSecRow2Counter).get(0) != null ? parseFloat($('#article' + newSecRow2Counter).get(0).getBoundingClientRect().height.toFixed(2)) : 0;
+
+// ReSharper disable once UsageOfPossiblyUnassignedValue
+                    var newHeight = newHeight + newSecRow1 + newSecRow2;
+                    $fmas.attr('data-full-height', newHeight);
+                    $fmas.animate({ height: $fmas.attr('data-full-height') }, time);
+                    if (counter === @hsgSection) {
+                        $curtain.animate({ opacity: 0 }, time, function () {
+                            $curtain.attr("display", "none");
+                        });
+                    }
+                });
+            }(jQuery, window, document));
+        </script>
+    }
+</div>

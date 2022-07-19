@@ -1,0 +1,22 @@
+﻿@{
+    var activeClass = string.Empty;
+    var x = Sitecore.Context.Item.Visualization.GetRenderings(Sitecore.Context.Device, false).FirstOrDefault(e => e.Placeholder == RenderingContext.Current.Rendering.Placeholder);
+
+    // TODO: figure out how to do this without the string manipulation and grabbing specific Sitecore items
+    var path = RenderingContext.Current.Rendering.Placeholder;
+    path = path.Substring(path.LastIndexOf("{", StringComparison.Ordinal));
+    var parentID = "car" + new Sitecore.Data.ID(path.Substring(0, path.LastIndexOf("}", StringComparison.Ordinal) + 1)).ToShortID().ToString().ToLower();
+
+    if (Sitecore.Context.PageMode.IsExperienceEditor || (x != null && x.UniqueId == (new Sitecore.Data.ID(RenderingContext.Current.Rendering.UniqueId)).ToString()))
+    {
+        activeClass = "active";
+    }
+}
+
+<div class="item @activeClass align-items-center" style="max-width:500px; margin-right:auto; margin-left:auto;">
+    <div class="row align-items-center" style="max-width:400px; height:300px; margin: 0 auto;">
+        <span>@Html.Sitecore().Field("Text")</span>
+        <a class="left carousel-control" data-slide="prev" role="button" data-target="#@parentID"><span class="sr-only">Previous</span></a>
+        <a class="right carousel-control" data-slide="next" role="button" data-target="#@parentID"><span class="sr-only">Next</span></a>
+    </div>
+</div>

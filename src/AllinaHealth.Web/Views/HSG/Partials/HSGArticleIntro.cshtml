@@ -1,0 +1,14 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel>
+<div class="article-intro-block">
+    <p class="hsg-topic--title">@Model.ClassName</p>
+    <h1 style="text-align:center">@Html.Sitecore().Field("Article Title")</h1>
+    <div class="article-info-block">
+        <div class="authors-block">
+            @Html.Partial("~/Views/HSG/Partials/Author.cshtml")
+        </div>
+        <div class="dateline">
+            <p>@AH.GetDictionaryText("HSG:CategoriesArticlePosted") @Model.ArticleItem.GetDate("Article Posted Date").ToString("MMMM d, yyyy")</p>
+        </div>
+    </div>
+    @Html.Partial("~/Views/HSG/Partials/QuickFacts.cshtml")
+</div>

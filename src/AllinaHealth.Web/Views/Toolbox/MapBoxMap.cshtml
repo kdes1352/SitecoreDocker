@@ -1,0 +1,58 @@
+﻿<aside>
+    @{
+        //Map (URL)
+        var locationString = AH.DataSourceItem.GetFieldValue("Location Name");
+        locationString = locationString.Replace(' ', '+');
+        locationString = locationString.Replace(",", "%2c");
+        locationString = locationString.Replace("&", "%26");
+        locationString = locationString + ",";
+
+        var stateName = AH.DataSourceItem.GetInternalLinkFieldItem("State").GetFieldValue("Postal Name");
+        var addressString = AH.DataSourceItem.GetFieldValue("Address Line 1") + " " + AH.DataSourceItem.GetFieldValue("Address Line 2") + ",+" + AH.DataSourceItem.GetFieldValue("City") + ", " + stateName + " " + AH.DataSourceItem.GetFieldValue("Zip");
+        addressString = addressString.Replace(' ', '+');
+        addressString = addressString.Replace("&", "%26");
+
+        var mapUrl = "http://maps.google.com/maps?iwloc=A&hl=en&q=" + locationString + addressString;
+        mapUrl = mapUrl.Replace("</br%2F>", "");
+        mapUrl = mapUrl.Replace("<br/>", "");
+
+        //Map (Image)
+        var latLong = AH.DataSourceItem.GetFieldValue("Longitude") + ',' + AH.DataSourceItem.GetFieldValue("Latitude");
+        var mapImageString = "https://api.mapbox.com/styles/v1/allinadigex/cj4yigogg3sww2rq9ex1vgwgl/static/url-https%3a%2f%2fcontent.wellclicks.com%2fcontent%2fimages%2fmap_mkr_dot_sm.png(" + latLong + ")/" + latLong + ",12.00,0.00,0.00/277x190?access_token=pk.eyJ1IjoiYWxsaW5hZGlnZXgiLCJhIjoiY2ozeWhpYWlkMDA3MTMzbXp0MHcxaXJ0YSJ9.5opBwnT8DexxRWqsvu7HeQ";
+
+        var ariaLabel = Html.Sitecore().Field("Location Name").ToSStr().Replace(" ", "") + "MapDirections";
+    }
+    <div>
+        <strong>
+            @Html.Sitecore().Field("Location Name")
+        </strong>
+    </div>
+    <div>
+        @Html.Sitecore().Field("Address Line 1")
+        <br />
+        @Html.Sitecore().Field("Address Line 2")
+    </div>
+
+    <div>
+        @Html.Sitecore().Field("City"), @stateName  @Html.Sitecore().Field("Zip")
+    </div>
+    <div>
+        <strong>
+            @Html.Sitecore().Field("Phone Number")
+        </strong>
+    </div>
+    @if (!AH.DataSourceItem.GetCheckBoxFieldValue("Hide Map", false))
+    {
+        <div>
+            <img src="@mapImageString" width="450" height="300" alt="Allina1">
+        </div>
+    }
+    <div>
+        <a href="@mapUrl" target="_blank" aria-labelledby="@ariaLabel">
+            @AH.GetDictionaryText("Maps:ViewMapGetDirections")
+        </a>
+    </div>
+    <div>
+        @Html.Sitecore().Field("Additional Information")
+    </div>
+</aside>

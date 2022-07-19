@@ -1,0 +1,20 @@
+﻿<div class="cms-content-callout">
+    <div class="content-callout-copy">
+        @Html.Sitecore().DynamicPlaceholder("Text Content")
+    </div>
+
+    @if (Sitecore.Context.PageMode.IsExperienceEditor)
+    {
+        <div style="min-width: 50px;">
+            <div class="content-callout-btn">
+                @Html.Sitecore().DynamicPlaceholder("Button Content")
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="content-callout-btn">
+            @Html.Sitecore().DynamicPlaceholder("Button Content")
+        </div>
+    }
+</div>

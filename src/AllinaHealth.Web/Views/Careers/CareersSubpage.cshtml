@@ -1,0 +1,52 @@
+﻿<div class="aos-overlap-container aos-overlap-container--short car-header">
+    <div class="promo-header-image">
+        <picture class="aos-full-bleed">
+            @Html.Partial("~/Views/Careers/Partials/CareersBannerContent.cshtml")
+        </picture>
+    </div>
+    <div class="aos-overlap-container__content aos-overlap-container__content--large">
+        <div class="form-container sub-page subpage">
+            @Html.Partial("~/Views/Careers/Partials/CareersSearchBar.cshtml")
+        </div>
+        <div class="aos-detail-frame p-30 careers-subpage">
+            @*For mobile view*@
+            <div class="d-lg-none">
+                @Html.Partial("~/Views/Layouts/Partials/MessageBox.cshtml")
+            </div>
+            <div class="col-md-3 col-md-push-9 cms-container cms-detail__right pr-0">
+                @Html.Sitecore().DynamicPlaceholder("Menu")
+                @*For mobile view*@
+                <h1 class="d-lg-none">
+                    @Html.Sitecore().Field("Page Title")
+                </h1>
+                @Html.Sitecore().DynamicPlaceholder("Sidebar")
+                @*For mobile view*@
+                <div class="d-none d-lg-block">@Html.Partial("~/Views/Careers/Partials/CareersSocialMediaBar.cshtml")</div>
+            </div>
+            <div class="col-md-9 col-md-pull-3 cms-container cms-detail__left pl-0">
+                @*For desktop/laptop view*@
+                <div class="d-none d-lg-block">
+                    @Html.Partial("~/Views/Layouts/Partials/MessageBox.cshtml")
+                </div>
+                @if (Sitecore.Context.Item.InExperienceEditorOrHasValue("Page Title"))
+                {
+                    @*For desktop/laptop view*@
+                    <h1 class="d-none d-lg-block">
+                        @Html.Sitecore().Field("Page Title")
+                    </h1>
+                }
+                @Html.Sitecore().DynamicPlaceholder("Body")
+                @*For mobile view*@
+                <div class="d-lg-none">@Html.Partial("~/Views/Careers/Partials/CareersSocialMediaBar.cshtml")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function ($, global, document) {
+        if ("@RenderingContext.Current.Rendering.RenderingItem.ID" == "{7D1B1EBA-BAF0-4454-8DCD-35AFEE410CFA}" && !$("#mainPageBody").hasClass("ah-careers")) {
+            $("#mainPageBody").addClass("ah-careers");
+        }
+    }(jQuery, window, document));
+</script> 

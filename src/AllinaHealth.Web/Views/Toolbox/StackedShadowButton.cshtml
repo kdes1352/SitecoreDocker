@@ -1,0 +1,16 @@
+﻿@{
+    var textPosition = AH.DataSourceItem.GetInternalLinkFieldItem("Text Position").GetFieldValue("Location", "align-left");
+    var linkUrl = AH.DataSourceItem.GetLinkFieldUrl("Link").IsEmptyOrNull() ? "" : AH.DataSourceItem.GetLinkFieldUrl("Link");
+}
+
+<a href="@linkUrl" title="@AH.DataSourceItem.GetFieldValue("Title")" class="btn-stacked-shadow-container">
+    <div class="btn-stacked-shadow @textPosition clearfix">
+        <div class="btn-stacked-shadow-img">
+            @Html.Sitecore().Field("Image", new { @alt = "image logo" })
+        </div>
+        <div class="btn-stacked-shadow-container">
+            <div class="btn-stacked-shadow-title">@Html.Sitecore().Field("Title")</div>
+            <div class="btn-stacked-shadow-content">@Html.Sitecore().Field("Subtext")</div>
+        </div>
+    </div>
+</a>

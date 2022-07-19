@@ -1,0 +1,8 @@
+﻿@{
+    var carouselId = "car" + RenderingContext.Current.Rendering.UniqueId.ToString().Replace("-", "");
+}
+<div id="@carouselId" class="carousel slide multi-item align-items-center" data-interval="false" data-ride="carousel">
+    <div class="carousel-inner carousel-body" role="listbox">
+        @Html.Sitecore().DynamicPlaceholder("Slides")
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<List<char>>
+@{
+    var modalSplitList = AH.GetDictionaryText("Toolbox:EDWaitTimeMessage").Split('\n').ToList();
+}
+
+<div class="location-wait-times">
+    @foreach (var m in modalSplitList)
+    {
+        @m
+        <br />
+    }
+    <span id="waitTime_@AH.DataSourceItem.GetFieldValue("Department Epic ID")">0 minutes</span>
+    <a data-toggle="modal" data-target="#estWaitTime" class="fa fa-info-circle" style="text-decoration: none;" title="Info about estimated wait time">
+        <span class="sr-only">Info about estimated wait time</span>
+    </a>
+    @Html.Partial("~/Views/Toolbox/Partials/WaitTimeModal.cshtml")
+</div>
+
+
+<script src="@($"//{AH.WellclicksHostName}/Scripts/eppa/waitTimesV2.js")"></script>
+<script>
+    var options = {
+        Host: "@Sitecore.Configuration.Settings.GetSetting("Wellclicks.API")",
+        apiKey: "@Sitecore.Configuration.Settings.GetSetting("Wellclicks.API.Key")",
+        apiPassword: "@Sitecore.Configuration.Settings.GetSetting("Wellclicks.API.PW")"
+    };
+
+    if (typeof (AHEDWaitTimes) !== "undefined") {
+        AHEDWaitTimes.EDTimes.init(options);
+        AHEDWaitTimes.EDTimes.getWaitTimes("@RenderingContext.Current.Rendering.Item.GetFieldValue("Department Epic ID")", "id", function (data) {
+            var htmlBuilder = "";
+            $("#waitTime_@AH.DataSourceItem.GetFieldValue("Department Epic ID")").html(data[0].EmergencyRoomWaitTimeSumMinutes + " minutes")
+
+            $("#allLocations").html(htmlBuilder);
+        }, function () {
+            //If we need something, replace the below alert with whatever we need
+            //alert(error);
+        });
+    }
+</script>

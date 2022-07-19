@@ -1,0 +1,51 @@
+﻿@model AllinaHealth.Models.ViewModels.EmailUsFormModel
+
+<div id="content_column">
+	<div class="threeQuarters">
+	@if (!Model.IsSuccess)
+	{
+		<form action="@LinkManager.GetItemUrl(Sitecore.Context.Item)" method="POST">
+			<h1>@Html.Sitecore().Field("Title")</h1>
+            <div id="">
+                <p>@Html.Sitecore().Field("Description")</p>
+                <p style="color: rgb(255, 0, 0);">@Html.Sitecore().Field("Emergency Text")</p>
+            </div>
+			<div>
+				<p class="required"><span class="warning">*</span>@AH.GetDictionaryText("Forms:Required")</p>
+				<label id="lblName">@AH.GetDictionaryText("Forms:NameLabel") <span class="warning">*</span></label>
+				@Html.TextBoxFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name, AH.GetDictionaryText("Forms:NameValidation"))
+			</div>
+			<div>
+				<label id="lblEmail">@AH.GetDictionaryText("Forms:EmailLabel") <span class="warning">*</span></label>
+				@Html.TextBoxFor(model => model.Email)
+				@Html.ValidationMessageFor(model => model.Email, AH.GetDictionaryText("Forms:EmailValidation"))
+			</div>
+			<div>
+				<label id="lblTelephone">@AH.GetDictionaryText("Forms:PhoneLabel") <span class="warning">*</span></label>
+				@Html.TextBoxFor(model => model.Phone)
+				@Html.ValidationMessageFor(model => model.Phone, AH.GetDictionaryText("Forms:PhoneValidation"))
+			</div>
+			<div>
+				<label id="lblQuestionOrComment">@AH.GetDictionaryText("Forms:QuestionLabel") <span class="warning">*</span></label><br>
+				@Html.TextAreaFor(model => model.Question)
+				@Html.ValidationMessageFor(model => model.Question, AH.GetDictionaryText("Forms:QuestionValidation"))
+				@*<textarea name="" rows="4" cols="80" id="txtQuestionOrComment"></textarea>*@
+			</div>
+			<div>
+				<br>
+				<input name="" value="@AH.DataSourceItem.GetFieldValue("Submit Button Text")" id="Button1" type="submit">
+				<input name="" value="@AH.DataSourceItem.GetFieldValue("Clear Button Text")" onclick="clearForm(); return false;" id="" type="submit">
+				<span id="Message" title="Confirmation" style="display:none;">Label</span>
+			</div>
+			<div id="">
+				<br>
+				<p>@Html.Sitecore().Field("Privacy Message")</p>
+			</div>
+		</form>
+	} else
+	{
+		<p class="jumbotron">The email has been sent.</p>
+	}
+	</div><!--end threeQuarters-->
+</div>

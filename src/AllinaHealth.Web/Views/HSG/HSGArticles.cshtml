@@ -1,0 +1,66 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel>
+
+<div class="hsg hsg-main hsg--@Model.TopicClassName">
+    <div class="container hsg-article">
+        @Html.Partial("~/Views/HSG/Partials/Header.cshtml")
+        <div class="hero-img-mask" style="text-align:center">
+            @Html.Sitecore().Field("Hero Image")
+        </div>
+        @Html.Partial("~/Views/HSG/Partials/HSGArticleIntro.cshtml")
+        <div class="narrow">
+            @Html.Sitecore().Field("Article Body")
+        </div>
+        @Html.Partial("~/Views/HSG/Partials/RelatedCallsToAction.cshtml")
+        @Html.Partial("~/Views/HSG/Partials/HSGArticleSocialMedia.cshtml")
+        @if (Model.RelatedArticles.Count > 0)
+        {
+            <h3 class="t-align-center sans-serif mb-40">@AH.GetDictionaryText("HSG:ArticlesMoreLikeThis")</h3>
+            @Html.Partial("~/Views/HSG/Partials/FeaturedArticle.cshtml")
+            @Html.Partial("~/Views/HSG/Partials/ArticleFMAS.cshtml")
+        }
+        @Html.Partial("~/Views/HSG/Partials/Footer.cshtml")
+    </div>
+</div>
+
+
+@*
+    These script and style changes fixes the details dropdown for unsupported browsers
+    Based off of this solution, which we could use in the future if we want a more robust solution
+    https://github.com/rstacruz/details-polyfill
+    We just need to uncomment the line below:
+    <script src="//cdn.jsdelivr.net/npm/details-polyfill@1/index.min.js" async></script>
+*@
+<style>
+    details > summary:before {
+        content: "▶";
+        display: inline-block;
+        font-size: 17px;
+        width: 1.5em;
+    }
+
+    details[open] > summary:before {
+        content: "▼";
+    }
+
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $('details summary').siblings().hide();
+        $('body').on('click', 'details summary', function (e) {
+            e.preventDefault();
+            $(this).siblings().toggle();
+            var $details = $(this).parent('details');
+            if ($details.attr('open') == 'open') {
+                $details.removeAttr('open');
+            } else {
+                $details.attr('open', 'open');
+            }
+        });
+    });
+</script>
+
+@*Jake was here*@

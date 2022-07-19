@@ -1,0 +1,34 @@
+﻿@{
+    var selectedAuthorItemsList = Sitecore.Context.Item.GetSelectedItems("Author");
+    if (selectedAuthorItemsList.Count > 4)
+    {
+        selectedAuthorItemsList = selectedAuthorItemsList.GetRange(0, 4);
+    }
+}
+@if (selectedAuthorItemsList.Count > 0)
+{
+    <div class="author">
+        @foreach (var i in selectedAuthorItemsList.GetRange(0, (selectedAuthorItemsList.Count > 1 ? 2 : 1)))
+        {
+            var authorClass = Html.Sitecore().LinkFieldWithString("Author URL", "", i).ToString() == "<a></a>" ? "author-name no-link" : "author-name";
+            <div class="author-detail d-flex">
+                @Html.Sitecore().Field(("Image"), i)
+                <p>@Html.Sitecore().LinkAndOtherField("Author URL", "Name", i, new { @class = authorClass, haschildren = true })</p>
+            </div>
+        }
+    </div>
+
+    if (selectedAuthorItemsList.Count > 2)
+    {
+        <div class="author">
+            @foreach (var i in selectedAuthorItemsList.GetRange(2, (selectedAuthorItemsList.Count - 2)))
+            {
+                var authorClass = Html.Sitecore().LinkFieldWithString("Author URL", "", i).ToString() == "<a></a>" ? "author-name no-link" : "author-name";
+                <div class="author-detail d-flex">
+                    @Html.Sitecore().Field(("Image"), i)
+                    <p>@Html.Sitecore().LinkAndOtherField("Author URL", "Name", i, new { @class = authorClass, haschildren = true })</p>
+                </div>
+            }
+        </div>
+    }
+}

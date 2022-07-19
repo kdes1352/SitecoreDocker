@@ -1,0 +1,16 @@
+﻿@{
+    var linkUrl = AH.DataSourceItem.GetLinkFieldUrl("Link").IsEmptyOrNull() ? "" : AH.DataSourceItem.GetLinkFieldUrl("Link");
+    var onClickAction = linkUrl == "" ? "" : "window.location = '" + linkUrl + "'";
+}
+@if (!linkUrl.IsEmptyOrNull())
+{
+    <div class="promo-header-image photoContainer clearfix" onclick="@onClickAction" title="@linkUrl">
+        @Html.Partial("~/Views/Header/Partials/BannerBody.cshtml", true)
+    </div>
+}
+else
+{
+    <div class="promo-header-image">
+        @Html.Partial("~/Views/Header/Partials/BannerBody.cshtml", false)
+    </div>
+}

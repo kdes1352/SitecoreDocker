@@ -1,0 +1,27 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel>
+@{
+    List<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel> selectedRelatedArticlesItemsList = null;
+    if (Model.RelatedArticles.Count > 3)
+    {
+        selectedRelatedArticlesItemsList = Model.RelatedArticles.ToList().GetRange(1, 3);
+    }
+    else if (3 >= Model.RelatedArticles.Count && Model.RelatedArticles.Count > 0)
+    {
+        selectedRelatedArticlesItemsList = Model.RelatedArticles.Skip(1).ToList();
+    }
+}
+<div class="article-fmas">
+    <div class="fmas">
+        @if (selectedRelatedArticlesItemsList != null && selectedRelatedArticlesItemsList.Count > 0)
+        {
+            foreach (var article in selectedRelatedArticlesItemsList.Where(article => article != null))
+            {
+                <a href="@LinkManager.GetItemUrl(article.ArticleItem)" class="article-fma" title="">
+                    @Html.Sitecore().Field("Hero Image", article.ArticleItem)
+                    <h3>@article.ArticleItem.GetFieldValue("Article Title")</h3>
+                    <p class="dateline">@AH.GetDictionaryText("HSG:CategoriesArticlePosted") @article.ArticleItem.GetDate("Article Posted Date").ToString("MMMM d, yyyy")</p>
+                </a>
+            }
+        }
+    </div>
+</div>

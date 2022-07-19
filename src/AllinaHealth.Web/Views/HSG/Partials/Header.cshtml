@@ -1,0 +1,18 @@
+﻿<div class="hsg-header">
+    <div class="logo-tagline">
+
+        <a href="/healthysetgo"><img src="@($"//{AH.WellclicksHostName}/content/images/hsg/hsg-logo-color.svg")" alt="Healthy Set Go logo" /></a>
+
+        <p>@AH.GetDictionaryText("HSG:CategoriesHeader")</p>
+    </div>
+    <div class="nav-controls js-sub-nav-toggle d-sm-flex d-md-none" data-toggle="collapse" data-target="#navCategories" id="HSG_Categories">
+
+        <p class="mb-0 mr-3">@AH.GetDictionaryText("HSG:CategoriesTopic")</p>
+        <button class="visible-xs-block indicator"></button>
+
+    </div>
+    @Html.Action("HSGNavigation", "HSG")
+    <script defer src="@($"https://{AH.WellclicksHostName}/scripts/hsg-nav.js")"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</div>

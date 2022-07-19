@@ -1,0 +1,49 @@
+﻿@{
+    var item = AH.DataSourceItem;
+    var title = item.GetFieldValue("Title", "[No title]");
+    var alt = "Image For " + title;
+    var linkUrl = item.GetLinkFieldUrl("URL");
+    linkUrl = (string.IsNullOrEmpty(linkUrl) ? "#" : linkUrl);
+    var hasImage = false;
+
+    //Default Value
+    var iconUrl = "#";
+
+    if (null != item.Fields["Image"] && item.Fields["Image"].HasValue)
+    {
+        var imageUrl = item.GetMediaUrl("Image");
+        if (!string.IsNullOrEmpty(imageUrl))
+        {
+            hasImage = true;
+        }
+    }
+
+    if (!hasImage)
+    {
+        Sitecore.Data.Fields.ReferenceField iconRefField = item.Fields["Icon"];
+        if (iconRefField?.TargetItem != null)
+        {
+            var iconItem = iconRefField.TargetItem;
+            if (null != iconItem)
+            {
+                iconUrl = iconItem.Fields["Source URL"].Value;
+            }
+        }
+    }
+}
+<a href="@linkUrl" class="cms-tile-btn @(hasImage?"img-btn":"")" title="@title">
+    <span class="cms-tile-btn__icon">
+        @if (hasImage)
+        {
+            @Html.Sitecore().Field("Image", new { alt })
+        }
+        else
+        {
+            <img src="@iconUrl" alt="@alt" />
+        }
+    </span>
+    @if (!hasImage)
+    {
+        <span class="cms-tile-btn-header">@title</span>
+    }
+</a>

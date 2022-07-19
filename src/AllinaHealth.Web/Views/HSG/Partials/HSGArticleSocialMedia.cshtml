@@ -1,0 +1,47 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.HSG.ArticleViewModel>
+
+<head>
+    @{ var urlOptions = UrlOptions.DefaultOptions;
+        urlOptions.AlwaysIncludeServerUrl = true;
+        var url = HttpUtility.UrlEncode(LinkManager.GetItemUrl(Model.ArticleItem, urlOptions));
+        var urlIntro = url.Substring(0, LinkManager.GetItemUrl(Model.ArticleItem).Length);
+        var photoUrl = urlIntro + Model.ArticleItem.GetMediaUrl("Hero Image");
+        photoUrl = photoUrl.Replace("%3A", ":");
+        photoUrl = photoUrl.Replace("%2F", "/");
+    }
+</head>
+
+<div class="fma-social fullbleed">
+    <p>@AH.GetDictionaryText("HSG:ArticlesShareBarHeader")</p>
+    <ul>
+        <li>
+            <a href="http://www.facebook.com/sharer.php?u=@url" class="fb-share-button">
+                <img src="@($"//{AH.WellclicksHostName}/content/images/hsg/social-icon-round--facebook.svg")" alt="facebook logo" />
+            </a>
+        </li>
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=@AH.DataSourceItem.GetFieldValue("Article Title")&via=AllinaHealth?url=@url" class="twitter-share">
+                <img src="@($"//{AH.WellclicksHostName}/content/images/hsg/social-icon-round--twitter.svg")" alt="twitter logo" />
+            </a>
+        </li>
+        <li>
+            <a href="https://www.pinterest.com/pin/create/button/?url=@url&media=@photoUrl&description=@AH.DataSourceItem.GetFieldValue("Article Title")" class="pinterest-share-button">
+                <img src="@($"//{AH.WellclicksHostName}/content/images/hsg/social-icon-round--pinterest.svg")" alt="pinterest logo" />
+            </a>
+        </li>
+        <li>
+            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=@url" class="linkedin-share-button" title="@AH.DataSourceItem.GetFieldValue("Article Title")" target="_blank">
+                <img src="@($"//{AH.WellclicksHostName}/content/images/hsg/social-icon-round--linkedin.svg")" alt="linkedin logo" />
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    (function ($, global, document) {
+        $('.fb-share-button, .twitter-share, .pinterest-share-button, .linkedin-share-button').click(function (e) {
+            e.preventDefault();
+            window.open($(this).attr('href'), 'fbShareWindow', 'height=450, width=650, top=' + ($(window).height() / 2 - 275) + ', left=' + ($(window).width() / 2 - 225) + ', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
+            return false;
+        });
+    }(jQuery, window, document));
+</script>

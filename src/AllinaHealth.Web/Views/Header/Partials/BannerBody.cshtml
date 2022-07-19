@@ -1,0 +1,24 @@
+﻿@{ 
+    var imgClass = "";
+    if (Model) {
+        imgClass = "class=img-link";
+    }
+}
+<picture>
+    <source srcset="@AH.DataSourceItem.GetMediaUrl("Extra Large", true), @AH.DataSourceItem.GetMediaUrl("Large", true)" media="(min-width: 1024px)">
+    <source srcset="@AH.DataSourceItem.GetMediaUrl("Medium", true)" media="(min-width: 768px)">
+    <source srcset="@AH.DataSourceItem.GetMediaUrl("Small", true)" media="all">
+    <img src="@AH.DataSourceItem.GetMediaUrl("Extra Large")" style="max-height:327px" @imgClass alt="" />
+</picture>
+@if (!AH.DataSourceItem.GetFieldValue("Large Blue Text Font").ToString().IsEmptyOrNull())
+{
+    <h1 class="promo-header-hdg">
+        @Html.Sitecore().Field("Large Blue Text Font")
+    </h1>
+}
+else
+{
+    <h1 class="promo-header-hdg-white">
+        @Html.Sitecore().Field("Small White Text Font")
+    </h1>
+}

@@ -2,13 +2,14 @@
 using AllinaHealth.Models.Extensions;
 using Sitecore.Data.Items;
 
-namespace AllinaHealth.Models.ViewModels.HSG.Menus
+namespace AllinaHealth.Models.ViewModels.Menus
 {
     public class MenuTreeModel
     {
         public MenuTreeModel Parent { get; set; }
         public List<MenuTreeModel> Children { get; set; }
         public Item Item { get; set; }
+        // ReSharper disable once InconsistentNaming
         public string URL { get; set; }
         public string Title { get; set; }
         public bool IsActive { get; set; }

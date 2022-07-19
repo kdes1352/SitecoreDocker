@@ -1,0 +1,22 @@
+﻿@{
+    var selectedRelatedCallsItemsList = Sitecore.Context.Item.GetSelectedItems("Related Call To Action");
+    if (selectedRelatedCallsItemsList.Count > 3)
+    {
+        selectedRelatedCallsItemsList = selectedRelatedCallsItemsList.GetRange(0, 3);
+    }
+}
+@if (selectedRelatedCallsItemsList.Count > 0)
+{
+    <div class="fma-context-cta fullbleed">
+        <h3>@AH.GetDictionaryText("HSG:ArticlesRelatedCallsHeader")</h3>
+        <ul>
+            @foreach (var i in selectedRelatedCallsItemsList)
+            {
+                <li>
+                    <p>@Html.Sitecore().Field("Action Header", i)</p>
+                    @Html.Sitecore().LinkAndOtherField("Action Button URL", "Action Button Text", i, new { @class = "btn", haschildren = true })
+                </li>
+            }
+        </ul>
+    </div>
+}

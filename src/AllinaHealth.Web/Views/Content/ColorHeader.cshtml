@@ -1,0 +1,12 @@
+﻿@{
+    var headerColor = AH.DataSourceItem.GetInternalLinkFieldItem("Heading Color").GetFieldValue("Class Name", "blue");
+}
+
+<div class="cms-color-header @AH.CmsClass">
+    <div class="heading @headerColor">
+        @Html.Sitecore().Field("Heading")
+    </div>
+    <div class="header-content">
+        @Html.Sitecore().Field("Content")
+    </div>
+</div>

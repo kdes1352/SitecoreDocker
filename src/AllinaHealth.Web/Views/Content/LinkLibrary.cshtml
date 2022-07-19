@@ -1,0 +1,28 @@
+﻿@{
+    var selectedButton = AH.DataSourceItem.GetSelectedItems("Button").FirstOrDefault();
+}
+<div class="ll-main">
+    <div class="ll-image">
+        @Html.Sitecore().Field("Image for Desktop", new { @class = "ll-main-img" })
+    </div>
+    <div class="ll-main-content">
+        <div class="ll-textbody">
+            <h2 class="ll-textbody-title">
+                @Html.Sitecore().Field("Main Header")
+            </h2>
+            <div class="ll-textbody-text">
+                @Html.Sitecore().Field("Description")
+            </div>
+            @if (!selectedButton.IsNull())
+            {
+                @Html.Sitecore().LinkAndOtherField("Link", "Link Text", selectedButton, new { @class = "aos-btn", haschildren = true }) @*[Main Button]*@
+            }
+        </div>
+        <div class="ll-phone-image-gradient">
+            @Html.Sitecore().Field("Image for Mobile", new { @class = "ll-phone-image" })
+        </div>
+        <div class="ll-main-linklists">
+            @Html.Sitecore().DynamicPlaceholder("Link Section")
+        </div>
+    </div>
+</div>

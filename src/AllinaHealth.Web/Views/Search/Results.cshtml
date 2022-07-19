@@ -1,0 +1,64 @@
+﻿@model AllinaHealth.Models.ViewModels.Search.SearchPage
+
+<div>
+    <form id="search-form" method="get" action="@LinkManager.GetItemUrl(Sitecore.Context.Item)">
+        <div class="container-fluid">
+            <div class="row">
+                <div style="margin-top:25px;">
+                    <div class="col-sm-3 text-right">
+                        @Html.LabelFor(m => m.SearchText, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.EditorFor(m => m.SearchText, null, "q", new { htmlAttributes = new { @class = "form-control ah-txt-med" } })
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="submit" class="aos-btn" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="container-fluid">
+        <div class="content row cms-container cms-global-results">
+            @if (Model.SearchText.Length > 0)
+            {
+                <div class="results-count">About @Model.TotalHits results for <strong>@Model.SearchText</strong></div>
+            }
+
+            @if (Model.Pager.CurrentPage == 1 && null != Model.PreferredResults && Model.PreferredResults.Count > 0)
+            {
+                <div class="cms-preferred-results">
+                    @Html.Partial("_SearchPreferredResultItems", Model.PreferredResults)
+                </div>
+            }
+            @Html.Partial("_SearchResultItems", Model.Results)
+            @if (Model.Pager.TotalPages > 1)
+            {
+                <div class="results-pager">
+                    @if (Model.Pager.CurrentPage > 1)
+                    {
+                        var prev = Model.Pager.CurrentPage - 1;
+                        <a href="@LinkManager.GetItemUrl(Sitecore.Context.Item)?q=@HttpUtility.UrlEncode(Model.SearchText)&pg=@prev" class="pager-item">prev</a>
+                    }
+                    @for (var pg = Model.Pager.StartPage; pg <= Model.Pager.EndPage; pg++)
+                    {
+                        if (Model.Pager.CurrentPage == pg)
+                        {
+                            <span class="pager-item">@pg</span>
+                        }
+                        else
+                        {
+                            <a href="@LinkManager.GetItemUrl(Sitecore.Context.Item)?q=@HttpUtility.UrlEncode(Model.SearchText)&pg=@pg" class="pager-item">@pg</a>
+                        }
+                    }
+                    @if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+                    {
+                        var next = Model.Pager.CurrentPage + 1;
+                        <a href="@LinkManager.GetItemUrl(Sitecore.Context.Item)?q=@HttpUtility.UrlEncode(Model.SearchText)&pg=@next" class="pager-item">next</a>
+
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

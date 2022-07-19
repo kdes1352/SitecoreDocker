@@ -1,0 +1,7 @@
+﻿@{
+    var bLoc = AH.DataSourceItem.GetCheckBoxFieldValue("Center Button", true) ? "class=cms-btn-center" : "";
+}
+
+<div @bLoc>
+    @Html.Sitecore().LinkAndOtherField("Link", "Link Text", null, new { @class = AH.DataSourceItem.GetInternalLinkFieldItem("Color").GetFieldValue("Class Name", "aos-btn"), haschildren = true })
+</div>

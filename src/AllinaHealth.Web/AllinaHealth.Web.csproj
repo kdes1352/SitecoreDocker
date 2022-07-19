@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -62,12 +63,141 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Assets\CSS\bootstrap.css" />
+    <Content Include="Assets\CSS\styles.css" />
+    <Content Include="Assets\IMG\icon-collapse.gif" />
+    <Content Include="Assets\IMG\icon-expand.gif" />
+    <Content Include="Assets\IMG\recipe-key-gluten-free.png" />
+    <Content Include="Assets\IMG\recipe-key-heart.png" />
+    <Content Include="Assets\IMG\recipe-key-sodium.png" />
+    <Content Include="Assets\JS\bootstrap.min.js" />
+    <Content Include="Assets\JS\main.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\GlassMapperSc.cs" />
+    <Compile Include="App_Start\GlassMapperScCustom.cs" />
+    <Compile Include="App_Start\InitializeIOC.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CareersController.cs" />
+    <Compile Include="Controllers\ContainersController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\FormsController.cs" />
+    <Compile Include="Controllers\GlobalController.cs" />
+    <Compile Include="Controllers\HeaderController.cs" />
+    <Compile Include="Controllers\HSGController.cs" />
+    <Compile Include="Controllers\MenusController.cs" />
+    <Compile Include="Controllers\NewsBlogController.cs" />
+    <Compile Include="Controllers\NewsroomController.cs" />
+    <Compile Include="Controllers\ProviderConnectController.cs" />
+    <Compile Include="Controllers\RedirectController.cs" />
+    <Compile Include="Controllers\ReportingController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SitemapController.cs" />
+    <Compile Include="Controllers\SyndicationController.cs" />
+    <Compile Include="Controllers\ToolboxController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Careers\CareersLandingPage.cshtml" />
+    <Content Include="Views\Careers\Partials\CareersBannerContent.cshtml" />
+    <Content Include="Views\Careers\Partials\CareersSearchBar.cshtml" />
+    <Content Include="Views\Careers\Partials\CareersSocialMediaBar.cshtml" />
+    <Content Include="Views\Layouts\Partials\MessageBox.cshtml" />
+    <Content Include="Views\Careers\CareersSubpage.cshtml" />
+    <Content Include="Views\Careers\CareersFeed.cshtml" />
+    <Content Include="Views\Containers\ContentBox.cshtml" />
+    <Content Include="Views\Content\ContentBlock.cshtml" />
+    <Content Include="Views\Content\GrayContentBlock.cshtml" />
+    <Content Include="Views\Content\ContentListWithButton.cshtml" />
+    <Content Include="Views\Content\ColorHeader.cshtml" />
+    <Content Include="Views\Content\HealthSource.cshtml" />
+    <Content Include="Views\Content\Button.cshtml" />
+    <Content Include="Views\Content\TipBox.cshtml" />
+    <Content Include="Views\Content\BorderedCalloutWithButtonOption.cshtml" />
+    <Content Include="Views\Content\Testimonial.cshtml" />
+    <Content Include="Views\Content\Partials\TestimonialBody.cshtml" />
+    <Content Include="Views\Content\LinkLibrary.cshtml" />
+    <Content Include="Views\Content\LinkSection.cshtml" />
+    <Content Include="Views\Content\Partials\LinkLibraryArrow.cshtml" />
+    <Content Include="Views\Forms\EmailUsForm.cshtml" />
+    <Content Include="Views\Forms\AccountSignIn.cshtml" />
+    <Content Include="Views\Header\ImageBanner.cshtml" />
+    <Content Include="Views\Header\Partials\BannerBody.cshtml" />
+    <Content Include="Views\HSG\BlogList.cshtml" />
+    <Content Include="Views\HSG\HSGCategories.cshtml" />
+    <Content Include="Views\HSG\Partials\Header.cshtml" />
+    <Content Include="Views\HSG\Partials\NewestFeaturedArticle.cshtml" />
+    <Content Include="Views\HSG\Partials\NewestArticleFMAS.cshtml" />
+    <Content Include="Views\HSG\Partials\Footer.cshtml" />
+    <Content Include="Views\HSG\HSGArticles.cshtml" />
+    <Content Include="Views\HSG\Partials\HSGArticleIntro.cshtml" />
+    <Content Include="Views\HSG\Partials\Author.cshtml" />
+    <Content Include="Views\HSG\Partials\QuickFacts.cshtml" />
+    <Content Include="Views\HSG\Partials\RelatedCallsToAction.cshtml" />
+    <Content Include="Views\HSG\Partials\HSGArticleSocialMedia.cshtml" />
+    <Content Include="Views\HSG\Partials\FeaturedArticle.cshtml" />
+    <Content Include="Views\HSG\Partials\ArticleFMAS.cshtml" />
+    <Content Include="Views\HSG\Partials\Navigation.cshtml" />
+    <Content Include="Views\HSG\Partials\ExploreHSG.cshtml" />
+    <Content Include="Views\Menus\Menus.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogPosts.cshtml" />
+    <Content Include="Views\NewsBlog\Partials\NewsBlogMenu.cshtml" />
+    <Content Include="Views\NewsBlog\Partials\NewsPost.cshtml" />
+    <Content Include="Views\NewsBlog\Partials\NewsPostSocialMedia.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogHome.cshtml" />
+    <Content Include="Views\NewsBlog\Partials\NewsPostFeatured.cshtml" />
+    <Content Include="Views\NewsBlog\Partials\NewsPostListing.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogMonth.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogYear.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogCategory.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogKeyword.cshtml" />
+    <Content Include="Views\NewsBlog\NewsBlogSearchResults.cshtml" />
+    <Content Include="Views\NewsBlog\Partials\NewsPostSearchResultListing.cshtml" />
+    <Content Include="Views\Newsroom\NewsArticle.cshtml" />
+    <Content Include="Views\Newsroom\NewsList.cshtml" />
+    <Content Include="Views\ProviderConnect\ProviderPostsList.cshtml" />
+    <Content Include="Views\Redirect\Index.cshtml" />
+    <Content Include="Views\Reporting\ModifiedItems.cshtml" />
+    <Content Include="Views\Search\Results.cshtml" />
+    <Content Include="Views\Shared\_SearchPreferredResultItems.cshtml" />
+    <Content Include="Views\Shared\_SearchResultItems.cshtml" />
+    <Content Include="Views\Containers\Lists\FeedList.cshtml" />
+    <Content Include="Views\Toolbox\NavigationTile.cshtml" />
+    <Content Include="Views\Toolbox\ContentBoxSignUp.cshtml" />
+    <Content Include="Views\Toolbox\IconLink.cshtml" />
+    <Content Include="Views\Toolbox\Teaser.cshtml" />
+    <Content Include="Views\Toolbox\RelatedLink.cshtml" />
+    <Content Include="Views\Toolbox\AccordionEntry.cshtml" />
+    <Content Include="Views\Toolbox\PhotoWithCaption.cshtml" />
+    <Content Include="Views\Toolbox\StackedImage.cshtml" />
+    <Content Include="Views\Toolbox\StackedShadowButton.cshtml" />
+    <Content Include="Views\Toolbox\YoutubeVideo.cshtml" />
+    <Content Include="Views\Toolbox\PageAlert.cshtml" />
+    <Content Include="Views\Toolbox\MapBoxMap.cshtml" />
+    <Content Include="Views\Toolbox\AtoZ.cshtml" />
+    <Content Include="Views\Toolbox\PhotoGallery.cshtml" />
+    <Content Include="Views\Toolbox\Slide.cshtml" />
+    <Content Include="Views\Toolbox\RichTextSlide.cshtml" />
+    <Content Include="Views\Toolbox\EDWaitTimes.cshtml" />
+    <Content Include="Views\Toolbox\Partials\WaitTimeModal.cshtml" />
+    <Content Include="Views\Toolbox\TileButton.cshtml" />
+    <Content Include="Views\Toolbox\TwitterFeed.cshtml" />
+    <Content Include="Views\Toolbox\QandA.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -76,7 +206,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EPPlus" />
+    <PackageReference Include="Glass.Mapper.Sc.90" />
+    <PackageReference Include="Glass.Mapper.Sc.90.Core" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" />
+    <PackageReference Include="Microsoft.AspNet.Razor" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" />
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" />
+    <PackageReference Include="Microsoft.Web.Infrastructure" />
+    <PackageReference Include="Sitecore.ContentSearch.SolrNetExtension" />
+    <PackageReference Include="Sitecore.ContentSearch.SolrProvider" />
+    <PackageReference Include="SolrNet" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AllinaHealth.Framework\AllinaHealth.Framework.csproj">
@@ -92,6 +232,7 @@
       <Name>AllinaHealth.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

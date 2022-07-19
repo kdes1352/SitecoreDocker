@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AllinaHealth.Models.ContentSearch.SiteSearchPreferredResultItem>
+
+
+@foreach (var m in Model)
+{
+    var pageUrl = m.PageUrl.ToLower();
+    //Temporary fix for indexed AllinaHealth.org URL's
+    if (pageUrl.IndexOf("cm.allinahealth.org", StringComparison.Ordinal) > 0)
+    {
+        pageUrl = pageUrl.Replace("cm.allinahealth.org", "www.allinahealth.org");
+    }
+    //Temporary fix for issue with accountsallinahealth.org URL's
+    //if (pageUrl.IndexOf("account.allinahealth.org") > 0)
+    //{
+    //    pageUrl = pageUrl.Replace("account.allinahealth.org", "wellness.allinahealth.org");
+    //}
+    var pageTitle = (string.IsNullOrEmpty(m.OverrideTitle) ? (string.IsNullOrEmpty(m.PageTitle) ? "No Page Title Available" : m.PageTitle) : m.OverrideTitle);
+
+    <div class="result-container">
+        <div>
+            <a href="@pageUrl" title="@pageTitle">
+                @if (string.IsNullOrEmpty(pageTitle))
+                {
+                    <em>@Html.Raw(pageTitle)</em>
+                }
+                else
+                {
+                    @Html.Raw(pageTitle)
+                }
+            </a>
+        </div>
+
+        <div class="result-desc">
+            @if (!string.IsNullOrEmpty(m.OverrideDescription))
+            {
+                @Html.Raw(m.OverrideDescription)
+            }
+            else if (!string.IsNullOrEmpty(m.MetaDescription))
+            {
+                @Html.Raw(m.MetaDescription)
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(m.HtmlContent))
+                {
+                    if (m.HtmlContent.Length > 160)
+                    {
+                        var content = m.HtmlContent.Substring(0, 160);
+                        content = content.Substring(0, content.LastIndexOf(" ", StringComparison.Ordinal));
+                        @Html.Raw(content)
+                        <span>...</span>
+                    }
+                    else
+                    {
+                        @Html.Raw(m.HtmlContent)
+                    }
+                }
+            }
+        </div>
+        <div class="result-desc">
+            @*Check for schemeless URL*@
+            @if (m.PageUrl.StartsWith("//"))
+            {
+                if (Context.Request.Url != null)
+                {
+                    @($"{Context.Request.Url.Scheme}:{pageUrl}")
+                }
+            }
+            else
+            {
+                @pageUrl
+            }
+
+        </div>
+
+    </div>
+}

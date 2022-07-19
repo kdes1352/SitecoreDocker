@@ -1,0 +1,51 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<AllinaHealth.Models.ViewModels.NewsBlog.SearchPageViewModel>
+
+@{
+    var searchUrl = AH.GetDictionaryText("NewsBlog:SearchURL");
+}
+<div>
+    <div class="container-fluid">
+        <div class="content row cms-container">
+            <div class="col-md-3 col-md-push-9 cms-container">
+                @Html.Partial("~/Views/NewsBlog/Partials/NewsBlogMenu.cshtml", Model.MenuTree)
+            </div>
+            <div class="col-md-9 col-md-pull-3 cms-container cms-global-results">
+                <h1>@Html.Sitecore().Field("Page Title", Sitecore.Context.Item)</h1>
+                @if (!string.IsNullOrEmpty(Model.SearchText) && Model.SearchText.Length > 0)
+                {
+                    <div class="results-count">About @Model.TotalHits results for <strong>@Model.SearchText</strong></div>
+                }
+                else
+                {
+                    <div class="results-count">No search term provided</div>
+                }
+                <div>
+                    @if (null != Model.Posts && Model.Posts.Count > 0)
+                    {
+                        <div class="content row cms-container">
+                            @Html.Partial("~/Views/NewsBlog/Partials/NewsPostSearchResultListing.cshtml", Model.Posts)
+                        </div>
+                        if (Model.Page > 1 || Model.Pager.HasMorePages())
+                        {
+                            <div>
+                                @if (Model.Page > 1)
+                                {
+                                    <a class="aos-btn" href="@String.Format("{0}?q={1}&pg={2}", searchUrl, Model.SearchText, (Model.Page - 1).ToString())">Show previous</a>
+                                }
+                                @if (Model.Pager.HasMorePages())
+                                {
+                                    <a class="aos-btn" href="@String.Format("{0}?q={1}&pg={2}", searchUrl, Model.SearchText, (Model.Page + 1).ToString())">Show more</a>
+                                }
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <p>Check back later for posting updates</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

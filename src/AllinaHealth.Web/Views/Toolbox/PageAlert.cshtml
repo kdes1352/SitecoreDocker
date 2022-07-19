@@ -1,0 +1,17 @@
+﻿<div class="cms-alert-home @AH.CmsClass">
+    @if (AH.DataSourceItem.InExperienceEditorOrHasValue("Title"))
+    {
+        <div class="header">@Html.Sitecore().Field("Title")</div>
+    }
+    @if (AH.DataSourceItem.InExperienceEditorOrHasValue("Description"))
+    {
+        <p>@Html.Sitecore().Field("Description")</p>
+    }
+
+    @if (AH.DataSourceItem.InExperienceEditorOrHasValue("Link Text"))
+    {
+        <div class="alert-btn">
+            @Html.Sitecore().LinkAndOtherField("Link", "Link Text", null, new { @class = "aos-btn", title = AH.DataSourceItem.GetFieldValue("Link Text"), haschildren = true })
+        </div>
+    }
+</div>

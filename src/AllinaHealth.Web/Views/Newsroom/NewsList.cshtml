@@ -1,0 +1,23 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<List<Sitecore.Data.Items.Item>>
+
+<div class="cms-container">
+    @if (!string.IsNullOrEmpty(AH.DataSourceItem.GetFieldValue("Subscribe URL")))
+    {
+        <div class="cms-subscribe-rss">
+            <a href="@AH.DataSourceItem.GetLinkFieldUrl("Subscribe URL")" title="Subscribe to RSS">@AH.GetDictionaryText("Newsroom:RssSubscribe")</a>
+        </div>
+    }
+    @foreach (var i in Model)
+    {
+        <div class="cms-news-listing">
+            <div class="news-date">
+                @i.GetDate("Article Date").ToString(AllinaHealth.Models.Constants.DateFormat.Default)
+            </div>
+            <div class="news-title">
+                <a href="@LinkManager.GetItemUrl(i)" title="@i.GetFieldValue("Page Title")">
+                    @i.GetFieldValue("Page Title")
+                </a>
+            </div>
+        </div>
+    }
+</div>

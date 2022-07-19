@@ -1,0 +1,17 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<List<System.ServiceModel.Syndication.SyndicationItem>>
+
+<div class="cms-container">
+    @foreach (var i in Model)
+    {
+        <div class="cms-news-listing">
+            <div class="news-date">
+                @i.PublishDate.ToString(DateFormat.Default)
+            </div>
+            <div class="news-title">
+                <a href="@i.Id" title="@i.Title.Text">
+                    @Html.Raw(i.Title.Text)
+                </a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,17 @@
+﻿@{
+    var item = Sitecore.Context.Item.GetFirstParentOfTemplate("{ACCA6C61-8690-4DAC-B808-976FEC88B7BD}");
+
+    if (!item.GetFieldValue("Message").IsEmptyOrNull())
+    {
+        <div class="cms-content-block">
+            @if (Sitecore.Context.Item.TemplateName == "Anchor Page")
+            {
+                @Html.Sitecore().Field("Message")
+            }
+            else
+            {
+                @Html.Sitecore().Field("Message", item)
+            }
+        </div>
+    }
+}

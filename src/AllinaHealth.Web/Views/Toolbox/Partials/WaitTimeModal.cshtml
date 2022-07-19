@@ -1,0 +1,24 @@
+﻿@{
+    var modalSplitList = AH.GetDictionaryText("Toolbox:EDWaitTimePopup").Split('\n').ToList();
+    var estWaitTime = "EID" + AH.DataSourceItem.GetFieldValue("Department Epic ID").ToSStr() + "EstimatedWaitTime" + AH.DataSourceItem.GetFieldValue("Department Epic ID").ToSStr();
+}
+
+<div class="modal fade" id="@estWaitTime" role="dialog" aria-labelledby="@estWaitTime">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="modal-header-title">Estimated Wait Time</div>
+            </div>
+            <div class="modal-body cms-content">
+                @foreach (var m in modalSplitList)
+                {
+                    <p>@m</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" title="Close">Close</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@model AllinaHealth.Models.Careers.CareersModel
+
+@{
+    const string newsReleaseClass = "col-md-12";
+}
+<div class="cms-gray-container row cms-row-flex">
+    @if (Model.NewsList.Count > 0)
+    {
+        <div class="@newsReleaseClass col-sm-12 left-col">
+            <div class="latest-news">
+                <h3>@AH.GetDictionaryText("Careers:FeedTitlesNewsReleases")</h3>
+                @foreach (var i in Model.NewsList)
+                {
+                    <div class="news-item">
+                        <div class="news-item-date">
+                            @i.GetDate("Article Date").ToString(AllinaHealth.Models.Constants.DateFormat.Default)
+                        </div>
+                        <div class="news-item-title">
+                            <a href="@LinkManager.GetItemUrl(i)" title="@i.GetFieldValue("Page Title")">
+                                @i.GetFieldValue("Page Title")
+                            </a>
+                        </div>
+                    </div>
+                }
+                <span><a href="https://www.allinahealth.org/about-us/newsroom/news-releases">See all news releases</a></span>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,84 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<Sitecore.Data.Items.Item>
+@{
+    var item = Model;
+    var srcStr = item.GetNewsSourceStr();
+
+    var pageTitle = !Html.Sitecore().Field("Title", item).ToStringOrEmpty().IsNullOrEmptyTrimmed() ? Html.Sitecore().Field("Title", item).ToStringOrEmpty() : "";
+    var videoUrl = "";
+
+    //If "Video Title" is blank, use "Title" (pageTitle) instead
+    var videoTitle = !Html.Sitecore().Field("Video Title", item).ToStringOrEmpty().IsNullOrEmptyTrimmed() ? Html.Sitecore().Field("Video Title", item).ToStringOrEmpty() : pageTitle;
+
+    var linkField = (Sitecore.Data.Fields.LinkField)item.Fields["Video URL"];
+    if (null != linkField)
+    {
+        videoUrl = linkField.Url;
+    }
+    //Accordion variables
+    var id = new Sitecore.Data.ID(RenderingContext.Current.Rendering.UniqueId);
+    var display = Sitecore.Context.PageMode.IsExperienceEditor ? string.Empty : "collapse";
+}
+<div>
+    <div class="cms-hdg">
+        <h2>
+            @Html.Sitecore().Field("Title", item)
+        </h2>
+    </div>
+    <div>
+        <p>
+            @srcStr
+            @Html.Raw(item.Fields["Content"])
+        </p>
+    </div>
+    @if ((Sitecore.Data.Fields.ImageField)item.Fields["Photo"] != null)
+    {
+        <div>
+            @Html.Sitecore().Field("Photo", item)
+        </div>
+        if ("" != Html.Sitecore().Field("Photo Caption", item).ToStringOrEmpty())
+        {
+            <div>
+                @Html.Sitecore().Field("Photo Caption", item)
+            </div>
+        }
+    }
+
+    @*NOTE: Any modifications to the below section should also be made to "Views/NewsBlog/Partials/NewsPost.cshtml".*@
+    @if (!string.IsNullOrEmpty(videoUrl))
+    {
+        <div style="position: relative;padding-bottom: 56.25%;padding-top: 30px; height: 0; overflow: hidden;">
+            <iframe aria-label="@videoTitle" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="@($"{@videoUrl}")" allowfullscreen="true"></iframe>
+        </div>
+        if ("" != Html.Sitecore().Field("Video Transcript Title", item).ToStringOrEmpty())
+        {
+            <div class="cms-accordion @AH.CmsClass">
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="@($"h{id.ToShortID()}")">
+                            <div class="title collapsed" data-role="title" data-toggle="collapse" href="#@id.ToShortID()" aria-expanded="false" aria-controls="@id.ToShortID()">
+                                <span>
+                                    @Html.Sitecore().Field("Video Transcript Title", item)
+                                </span>
+                            </div>
+                        </div>
+                        <div id="@id.ToShortID()" class="panel-collapse @display" role="tabpanel" aria-labelledby="@($"h{id.ToShortID()}")">
+                            <div class="panel-body">
+                                @if ("" != Html.Sitecore().Field("Video Transcript", item).ToStringOrEmpty())
+                                {
+                                    <div>
+                                        @Html.Sitecore().Field("Video Transcript", item)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <div>
+        <p>
+            <a href="@LinkManager.GetItemUrl(item)" class="article-fma" title="">Continue Reading</a>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@{
+    var twitterHandle = Html.Sitecore().Field("Twitter Handle") != null && Html.Sitecore().Field("Twitter Handle").ToSStr() != "" ?
+        Html.Sitecore().Field("Twitter Handle").ToSStr() : "AllinaHealth";
+    var url = "https://twitter.com/" + twitterHandle + "?ref_src=twsrc%5Etfw";
+}
+
+<div class="twitter-feed">
+    <a class="twitter-timeline" data-height="425" data-theme="light" href="@url">Tweets by @twitterHandle")</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>

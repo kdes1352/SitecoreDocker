@@ -1,0 +1,7 @@
+﻿@{
+    var ClassToUse = "cms-content-block" + (AH.DataSourceItem.GetCheckBoxFieldValue("Center Content", true) ? " centered" : "");
+}
+
+<div class="@ClassToUse">
+    @Html.Sitecore().Field("Content")
+</div>

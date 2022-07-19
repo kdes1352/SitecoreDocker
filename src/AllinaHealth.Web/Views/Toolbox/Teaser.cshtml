@@ -1,0 +1,43 @@
+﻿@{
+    var hasBackgroundType = AH.DataSourceItem.GetInternalLinkFieldItem("Background Type") != null;
+    var styleBackground = "";
+    if (!AH.DataSourceItem.GetMediaUrl("Image").IsEmptyOrNull())
+    {
+        styleBackground = "background-image:url(" + AH.DataSourceItem.GetMediaUrl("Image") + "); background-size:cover;";
+    }
+    else if (hasBackgroundType)
+    {
+        if (AH.DataSourceItem.GetInternalLinkFieldItem("Background Type").Name == "HSG")
+        {
+            styleBackground = "background-image:url(" + $"//{AH.WellclicksHostName}/content/images/allina/hsg_3.png" + "); background-size:cover;";
+        }
+    }
+
+    var textAlignment = AH.DataSourceItem.GetInternalLinkFieldItem("Alignment").GetFieldValue("Class Name", "justify-content-center");
+    var backgroundClass = AH.DataSourceItem.GetInternalLinkFieldItem("Background Type").GetFieldValue("Class Name");
+
+    var contentColor = AH.DataSourceItem.GetInternalLinkFieldItem("Title and Content Color").GetFieldValue("Class Name", "promo-content");
+}
+
+<aside class="promo @textAlignment @backgroundClass" style="@styleBackground">
+    <div class="@contentColor">
+        @if (!Html.Sitecore().Field("Title").ToSStr().IsNullOrEmptyTrimmed())
+        {
+            <h3 class="promo-title @textAlignment">@Html.Sitecore().Field("Title")</h3>
+        }
+        @if (!Html.Sitecore().Field("Content").ToSStr().IsNullOrEmptyTrimmed())
+        {
+            <h6 class="promo-subtitle @textAlignment">@Html.Sitecore().Field("Content")</h6>
+        }
+        @Html.Sitecore().LinkAndOtherField("Link", "Link Text", null, new { @class = "btn btn-light", haschildren = true })
+        @if (AH.DataSourceItem.GetInternalLinkFieldItem("Background Type") != null)
+        {
+            if (AH.DataSourceItem.GetInternalLinkFieldItem("Background Type").Name == "HSG")
+            {
+                <div class="hsg-img">
+                    <img src="@($"//{AH.WellclicksHostName}/content/images/allina/hsg_logo_white.png")" alt="" />
+                </div>
+            }
+        }
+    </div>
+</aside>

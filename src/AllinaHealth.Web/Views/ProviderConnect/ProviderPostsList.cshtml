@@ -1,0 +1,17 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<List<Item>>
+
+<div class="cms-container">
+    @foreach (var i in Model)
+    {
+        <div class="cms-news-listing">
+            <div class="news-date">
+                @i.GetDate("Article Date").ToString(DateFormat.Default)
+            </div>
+            <div class="news-title">
+                <a href="@LinkManager.GetItemUrl(i)" title="@i.GetFieldValue("Page Title")">
+                    @i.GetFieldValue("Page Title")
+                </a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,8 @@
+﻿<div class="@AH.CmsClass">
+    <p>
+        <div><strong>@AH.GetDictionaryText("HealthSources:Source"): </strong> @Html.Sitecore().Field("Source")</div>
+        <div><strong>@AH.GetDictionaryText("HealthSources:ReviewedBy"): </strong> @Html.Sitecore().Field("Reviewed By")</div>
+        <div><strong>@AH.GetDictionaryText("HealthSources:FirstPublished"): </strong> @Html.Sitecore().Field("First Published", new { format = DateFormat.Default })</div>
+        <div><strong>@AH.GetDictionaryText("HealthSources:LastReviewed"): </strong> @Html.Sitecore().Field("Last Reviewed", new { format = DateFormat.Default })</div>
+    </p>
+</div>

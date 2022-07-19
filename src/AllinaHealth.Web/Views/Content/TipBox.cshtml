@@ -1,0 +1,12 @@
+﻿@inherits AllinaHealth.Framework.Razor.WebViewPage<List<string>>
+
+@{
+    var boxType = AH.DataSourceItem.GetInternalLinkFieldItem("Type").GetFieldValue("Class Name", "tip");
+    var boxPosition = Model.Contains("full width container") ? AH.DataSourceItem.GetInternalLinkFieldItem("Position").GetFieldValue("Location", "pos-left") : "full-width";
+}
+
+<div class="cms-cta @boxPosition @boxType">
+    <div class="cta-content">
+        @Html.Sitecore().Field("Text")
+    </div>
+</div>
